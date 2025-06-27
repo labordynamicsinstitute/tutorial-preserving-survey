@@ -10,7 +10,6 @@ index_files
 index.html
 .Rprofile
 data
-.Renviron
 .cache
 .config
 .local
