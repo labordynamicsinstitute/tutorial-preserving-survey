@@ -82,11 +82,11 @@ Here we will demonstrate how to preserve raw survey data and also how to handle 
 
 Please fill out this  survey:
 
-<`r file.path(QUALTRICS_FULL_URL,QUALTRICS_SURVEY)`>
+`r file.path(QUALTRICS_FULL_URL,QUALTRICS_SURVEY)`
 
 ### Live Results
 
-```{r downloaddata2,include=FALSE}
+```{r downloaddata,include=FALSE}
 # download data to local location
 
 # if the Qualtrics API key is not set, we can't fetch the data
@@ -134,49 +134,6 @@ data.table |> kable()
 }
 ```
 
-```{r summary_age, results='asis', echo=FALSE, message=FALSE}
-if (nrow(data2) > 0) {
-  cat("### Summary of age\n\n")
-  var_data <- data$age
-  summary_stats <- data.frame(
-    Statistic = c("Count", "Mean", "Median", "Min", "Max", "SD"),
-    Value = c(
-      sum(!is.na(var_data)),
-      mean(var_data, na.rm = TRUE),
-      median(var_data, na.rm = TRUE),
-      min(var_data, na.rm = TRUE),
-      max(var_data, na.rm = TRUE),
-      sd(var_data, na.rm = TRUE)
-    )
-  )
-  print(knitr::kable(summary_stats, digits = 2))
-} else {
-  cat("No data yet. Check back later.")
-}
-
-```
-
-```{r summary_tabs, results='asis', echo=FALSE, message=FALSE}
-if (nrow(data2) > 0) {
-  cat("### Summary of number of open tabs\n\n")
-  var_data <- data$tabs
-  summary_stats <- data.frame(
-    Statistic = c("Count", "Mean", "Median", "Min", "Max", "SD"),
-    Value = c(
-      sum(!is.na(var_data)),
-      mean(var_data, na.rm = TRUE),
-      median(var_data, na.rm = TRUE),
-      min(var_data, na.rm = TRUE),
-      max(var_data, na.rm = TRUE),
-      sd(var_data, na.rm = TRUE)
-    )
-  )
-  print(knitr::kable(summary_stats, digits = 2))
-} else {
-  cat("No data yet. Check back later.")
-}
-
-```
 
 ```{r preserve data, include=FALSE,echo=FALSE,message=FALSE}
 # Now save the data to a local file

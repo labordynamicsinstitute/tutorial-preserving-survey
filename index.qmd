@@ -4,17 +4,6 @@ author:
   - Laurel Krovetz
   - Lars Vilhuber
 date: June 2025
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .qmd
-      format_name: quarto
-      format_version: '1.0'
-      jupytext_version: 1.17.2
-  kernelspec:
-    display_name: Python 3 (ipykernel)
-    language: python
-    name: python3
 ---
 
 ```{r config,include=FALSE}
@@ -52,7 +41,7 @@ GITHUB_REPOSITORY_PARTS <- strsplit(GITHUB_REPOSITORY, "/")[[1]]
 REPOSITORY_URL <- paste0("https://github.com/", GITHUB_REPOSITORY)
 WEBSITE_URL <- paste0("https://", GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSITORY_PARTS[2])
 
-# Qualtrics data:
+# qualtRics data:
 # you can find this with all_surveys() %>% arrange(creationDate) %>% head()
 
 QUALTRICS_FULL_URL <- "https://qualtricsxmbc2c8mjrh.qualtrics.com/jfe/form"
@@ -82,11 +71,11 @@ Here we will demonstrate how to preserve raw survey data and also how to handle 
 
 Please fill out this  survey:
 
-<`r file.path(QUALTRICS_FULL_URL,QUALTRICS_SURVEY)`>
+`r file.path(QUALTRICS_FULL_URL,QUALTRICS_SURVEY)`
 
 ### Live Results
 
-```{r downloaddata2,include=FALSE}
+```{r downloaddata,include=FALSE}
 # download data to local location
 
 # if the Qualtrics API key is not set, we can't fetch the data
@@ -134,49 +123,6 @@ data.table |> kable()
 }
 ```
 
-```{r summary_age, results='asis', echo=FALSE, message=FALSE}
-if (nrow(data2) > 0) {
-  cat("### Summary of age\n\n")
-  var_data <- data$age
-  summary_stats <- data.frame(
-    Statistic = c("Count", "Mean", "Median", "Min", "Max", "SD"),
-    Value = c(
-      sum(!is.na(var_data)),
-      mean(var_data, na.rm = TRUE),
-      median(var_data, na.rm = TRUE),
-      min(var_data, na.rm = TRUE),
-      max(var_data, na.rm = TRUE),
-      sd(var_data, na.rm = TRUE)
-    )
-  )
-  print(knitr::kable(summary_stats, digits = 2))
-} else {
-  cat("No data yet. Check back later.")
-}
-
-```
-
-```{r summary_tabs, results='asis', echo=FALSE, message=FALSE}
-if (nrow(data2) > 0) {
-  cat("### Summary of number of open tabs\n\n")
-  var_data <- data$tabs
-  summary_stats <- data.frame(
-    Statistic = c("Count", "Mean", "Median", "Min", "Max", "SD"),
-    Value = c(
-      sum(!is.na(var_data)),
-      mean(var_data, na.rm = TRUE),
-      median(var_data, na.rm = TRUE),
-      min(var_data, na.rm = TRUE),
-      max(var_data, na.rm = TRUE),
-      sd(var_data, na.rm = TRUE)
-    )
-  )
-  print(knitr::kable(summary_stats, digits = 2))
-} else {
-  cat("No data yet. Check back later.")
-}
-
-```
 
 ```{r preserve data, include=FALSE,echo=FALSE,message=FALSE}
 # Now save the data to a local file
@@ -191,6 +137,5 @@ if (nrow(data) > 0) {
 ## Why
 
 Lorem ipso facto.
-
 
 :::
