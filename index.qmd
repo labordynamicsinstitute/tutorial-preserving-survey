@@ -44,16 +44,17 @@ WEBSITE_URL <- paste0("https://", GITHUB_REPOSITORY_PARTS[1], ".github.io/", GIT
 # qualtRics data:
 # you can find this with all_surveys() %>% arrange(creationDate) %>% head()
 
-QUALTRICS_FULL_URL <- "https://qualtricsxmbc2c8mjrh.qualtrics.com/jfe/form"
+QUALTRICS_FULL_URL <- "https://cornell.yul1.qualtrics.com/jfe/form"
 
 # Public Qualtrics URL for day 2
 
-QUALTRICS_SURVEY <- "SV_abcklmfXPacjpB4"
+QUALTRICS_SURVEY <- "SV_cNkhKL69K2Ob7o2"
 
 # Time when this was posted (discard anything before that)
 
-QUALTRICS_STIME <- ymd_hms("2025-06-30 23:59:00")
-QUALTRICS_ETIME <- ymd_hms("2025-08-26 23:59:00")
+QUALTRICS_STIME <- ymd_hms("2025-04-30 23:59:00")
+QUALTRICS_ETIME <- ymd_hms("2025-05-26 23:59:00")
+
 
 if (!dir.exists(here::here("data"))) {
   dir.create(here::here("data"))
@@ -71,10 +72,9 @@ Here we will demonstrate how to preserve raw survey data and also how to handle 
 
 Please fill out this  survey:
 
-`r file.path(QUALTRICS_FULL_URL,QUALTRICS_SURVEY)`
+<`r file.path(QUALTRICS_FULL_URL,QUALTRICS_SURVEY)`>
 
 ### Live Results
-
 ```{r downloaddata,include=FALSE}
 # download data to local location
 
@@ -83,21 +83,23 @@ if (Sys.getenv("QUALTRICS_API_KEY") != "") {
   data.raw <- fetch_survey(surveyID = QUALTRICS_SURVEY, verbose = TRUE) 
   data <- data.raw |>
           filter(Status != "Survey Preview") |>
-          filter(consent == "Yes") |>
+          filter(Consent == "I agree that my data will be used in the manner described.") |>
           filter(StartDate > QUALTRICS_STIME & EndDate < QUALTRICS_ETIME) |>
     # renaming variables
-    select(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,consent,age,gender,education,tabs,name_confidential,number_confidential)
+    select(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,Consent,Preferred_topic,Degree,JEL_primary,
+          starts_with("JEL_secondary"),starts_with("Versioning_"))
 } else {
   data <- data.frame()
 }
 
 ```
 
-```{r education_table, results='asis', include=TRUE,echo=FALSE,message=FALSE}
+```{r create_table2, results='asis', include=TRUE,echo=FALSE,message=FALSE}
+
 if ( nrow(data) >0 ) {
 data |>
-  select(education) |>
-  group_by(education) |>
+  select(Preferred_topic) |>
+  group_by(Preferred_topic) |>
   summarise(Frequency=n()) |>
   ungroup() |>
   mutate(Percent = round(Frequency/nrow(data)*100,2)) -> data.table
@@ -105,32 +107,6 @@ data |>
 data.table |> kable()
 } else {
   cat("No data yet. Check back later.")
-}
-```
-
-```{r gender_table, results='asis', include=TRUE,echo=FALSE,message=FALSE}
-if ( nrow(data) >0 ) {
-data |>
-  select(gender) |>
-  group_by(gender) |>
-  summarise(Frequency=n()) |>
-  ungroup() |>
-  mutate(Percent = round(Frequency/nrow(data)*100,2)) -> data.table
-
-data.table |> kable()
-} else {
-  cat("No data yet. Check back later.")
-}
-```
-
-
-```{r preserve data, include=FALSE,echo=FALSE,message=FALSE}
-# Now save the data to a local file
-if (nrow(data) > 0) {
-  write_csv(data, here::here("data", "live-survey.csv"))
-  saveRDS(data, here::here("data", "live-survey.rds"))
-} else {
-  # message("No data to save.")
 }
 ```
 
