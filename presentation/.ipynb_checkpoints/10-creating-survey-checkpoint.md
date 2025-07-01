@@ -1,3 +1,3 @@
 ## Creating a survey in Qualtrics
 
-![Qualtrics-Edit](images/qualtrics-edit.png)
+![](images/qualtrics-edit.png)

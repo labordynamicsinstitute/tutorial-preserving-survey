@@ -145,6 +145,27 @@ if (nrow(data) > 0) {
 }
 ```
 
+```{r tabs_table, results='asis', echo=FALSE, message=FALSE}
+if (nrow(data) > 0) {
+  cat("### Number of tabs open")
+  var_data <- data$num_tabs_1
+  summary_stats <- data.frame(
+    Statistic = c("Count", "Mean", "Median", "Min", "Max", "Sts. Dev."),
+    Value = c(
+      sum(!is.na(var_data)),
+      mean(var_data, na.rm = TRUE),
+      median(var_data, na.rm = TRUE),
+      min(var_data, na.rm = TRUE),
+      max(var_data, na.rm = TRUE),
+      sd(var_data, na.rm = TRUE)
+    )
+  )
+  print(knitr::kable(summary_stats, digits = 2))
+} else {
+  cat("No data yet. Check back later.")
+}
+```
+
 ## Why
 
 Lorem ipso facto.

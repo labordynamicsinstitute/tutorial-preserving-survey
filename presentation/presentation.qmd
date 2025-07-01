@@ -63,19 +63,26 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 ```{r, child=c(here::here("presentation",'10-creating-survey.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'11-exporting-data.md'))}
+```{r, child=c(here::here("presentation",'11-qualtrics-data.md'))}
 ```
 
-# Processing data in stata
+# Processing data in R
 
-```{r, child=c(here::here("presentation",'20-processing-stata.md'))}
+```{r, child=c(here::here("presentation",'20-processing-R.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'21-processing-stata.md'))}
+```{r, child=c(here::here("presentation",'21-processing-R.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'22-processing-stata.md'))}
+```{r, child=c(here::here("presentation",'22-processing-R.md'))}
+```
+
+```{r, child=c(here::here("presentation",'23-processing-R.md'))}
 ```
 
 ```{r, child=c(here::here("presentation",'30-present-data.md'))}
+```
+
+# Survey results
+```{r, child=c(here::here("presentation",'40-survey-results.md'))}
 ```
