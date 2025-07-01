@@ -1,0 +1,94 @@
+---
+title: "Hands-on: A very imperfect example"
+date: "`r Sys.Date()`"
+author: 
+  - "Lars Vilhuber"
+  - "Michael Stepner"
+format: 
+  revealjs:
+    scrollable: true
+    margin: 0
+    code-overflow: wrap
+    reference-location: document
+    widescreen: true
+    center: true
+    transition: slide
+    theme: [night, style.css]
+    self_contained: false
+    logo: logo.png
+    footer: ""
+    reveal_options:
+        slideNumber: true
+        previewLinks: false
+        chalkboard:
+          theme: chalkboard
+          toggleNotesButton: true
+    reveal_plugins: ["chalkboard"]
+
+---
+  
+
+## Overview
+
+::: {.columns-2}
+
+:::: {.column}
+
+- A Github package with a paper, code, data
+- [https://github.com/labordynamicsinstitute/very-imperfect-example](https://github.com/labordynamicsinstitute/very-imperfect-example)
+
+::::
+  
+:::: {.column}
+
+[![](images/labordynamicsinstitute_very-imperfect-example.png)]("https://github.com/labordynamicsinstitute/very-imperfect-example")
+
+
+::::
+  
+:::
+
+
+
+## The "paper"
+
+
+[![Paper](images/very-imperfect-example-paper.png)](https://github.com/labordynamicsinstitute/very-imperfect-example/blob/main/text/main.pdf)
+
+## Goal
+
+**Let's reproduce!** 
+
+## Pre-check 
+
+- [❓] Do you know how to download from Github?
+- [❓] Do you have Stata installed?
+
+## Pre-check {transition="none"}
+
+- [✅] Do you know how to download from Github?
+- [✅] Do you have Stata installed?
+
+## Your turn
+
+
+::: {.columns-2}
+
+:::: {.column}
+
+- Download the "very imperfect example" [https://github.com/labordynamicsinstitute/very-imperfect-example](https://github.com/labordynamicsinstitute/very-imperfect-example)
+- Reproduce Table 1
+- You have 10 minutes
+
+::::
+:::: {.column}
+
+```{r, child=c('counter10.md')}
+```
+
+::::
+:::
+
+## 
+
+[Back to the main program](presentation.html#/day-1-reproducibility)

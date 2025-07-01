@@ -1,0 +1,169 @@
+---
+title: "Reproducibility in research – Day 2"
+author: 
+  - "Lars Vilhuber"
+  - "Michael Stepner"
+date: May 27 2025
+title-slide-attributes:
+  data-background-image: "images/lake-summer.jpg" 
+  data-background-size: "auto 50%"
+  data-background-position: "bottom"
+format: 
+  revealjs:
+    scrollable: true
+    margin: 0
+    code-overflow: wrap
+    reference-location: document
+    widescreen: true
+    center: true
+    transition: slide
+    theme: [night, style.css]
+    self_contained: false
+    logo: logo.png
+    footer: ""
+    reveal_options:
+        slideNumber: true
+        previewLinks: false
+        chalkboard:
+          theme: chalkboard
+          toggleNotesButton: true
+    reveal_plugins: ["chalkboard"]
+
+---
+
+
+
+```{r config,include=FALSE}
+source(here::here("presentation",'global-libraries.R'))
+# The repository name
+
+message(Sys.getenv("GITHUB_REPOSITORY"))
+
+# Process the repository name to generate the URL
+# - split the two components
+# - combine them into a URL with 'github.io' in the middle
+
+SUBDIRECTORY <- "presentation/day2.html" # Leave this empty if this file is in the main directory of the repository
+
+GITHUB_REPOSITORY <- Sys.getenv("GITHUB_REPOSITORY")
+GITHUB_REPOSITORY_PARTS <- strsplit(GITHUB_REPOSITORY, "/")[[1]]
+REPOSITORY_URL <- paste0("https://github.com/", GITHUB_REPOSITORY)
+
+WEBSITE_BASE <- paste0("https://", GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSITORY_PARTS[2])
+WEBSITE_URL <- paste0(WEBSITE_BASE, "/", SUBDIRECTORY)
+WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSITORY_PARTS[2], "/", SUBDIRECTORY)
+
+```
+
+
+```{r, child=c(here::here("presentation",'00-qrcode.md'))}
+```
+
+```{r, child=c(here::here("presentation",'00-follow-along.md'))}
+```
+
+
+# The program
+
+## Day 2
+
+```{r, child=c(here::here('toc2.md'))}
+```
+
+# Discussion of the "Very imperfect example"
+
+## Discussion
+
+:::::{.columns}
+::::{.column width="50%"}
+
+🔒[Link](https://github.com/labordynamicsinstitute/very-imperfect-example-lesson/)
+
+::::
+
+::::{.column width="50%"}
+
+
+
+```{r, child=c(here::here('presentation','counter30.md'))}
+```
+
+::::
+
+
+:::::
+
+# Documenting it all
+
+
+## The template README
+
+[➡️ How to correctly document a replication package](https://larsvilhuber.github.io/readme-presentation/)
+
+# Break
+
+
+:::::{.columns}
+::::{.column width="30%"}
+
+::::
+
+::::{.column width="40%"}
+
+
+
+```{r, child=c(here::here('presentation','counter15.md'))}
+```
+
+::::
+
+::::{.column width="30%"}
+
+::::
+
+
+:::::
+
+# How to run Stata reproducibly
+
+## How to run Stata reproducibly
+
+.. or **R** or **Python** or **Julia**... reproducibly.
+
+[➡️ How to run Stata!](https://larsvilhuber.github.io/self-checking-reproducibility/presentation/#/creating-log-files) or R! (reproducibly)
+
+
+##  How to install Stata packages reproducibly
+
+[➡️ How to install Stata packages](https://larsvilhuber.github.io/self-checking-reproducibility/presentation/#/environments)
+
+
+# **Topic A** 
+
+[➡️ See Survey](`r WEBSITE_BASE`) 
+
+
+# Data cleaning
+
+🔒[When data cleaning](https://github.com/labordynamicsinstitute/very-imperfect-example/blob/main/programs/02_table1.do#L13) is  🔒[critical](https://github.com/labordynamicsinstitute/very-imperfect-example-lesson/blob/main/programs/01_dataclean.do#L40)
+
+# Intermezzo: API and AI
+
+- [➡️ What to do when data come from an API?](https://github.com/labordynamicsinstitute/alfred_example/)
+- [➡️ What to do when part of the process uses AI or LLMs?](https://larsvilhuber.github.io/reproducibility-for-llm/presentation/)
+
+# **Topic B**
+
+
+```{r, child=c(here::here('presentation','21-archiving.md'))}
+```
+
+
+# Final stretch
+
+## After the Break
+
+- 14:30 *Hands-on:* Improving the replication package (very imperfect -> a lot better)
+- 15:00 *Hands-on:* Testing it all
+- 15:15 Wrap up
+- 16:00 Fin.

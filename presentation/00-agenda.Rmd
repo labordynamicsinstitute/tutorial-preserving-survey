@@ -1,0 +1,116 @@
+---
+title: "École d'été 2024 - Introduction"
+author: 
+  - "Lars Vilhuber"
+  - "Marie Connolly"
+date: "`r Sys.Date()`"
+---
+  
+```{r, child=c('toc.md')}
+```
+
+# Day 1
+
+## Détails {.smaller}
+
+- 13:00 Bienvenue
+- 13:15 Description de l'agenda pour les deux jours 
+- 13:30 Discussion sur les pré-requis techniques, possiblement formation d'équipes
+
+## Détails {.smaller}
+
+- 13:45 [Day One](https://thnk.ng/day1/)
+  - Parcours d'un projet de la conception à l'analyse
+
+## Détails {.smaller}
+
+- 15:15 pause
+- 15:30 Description de l'exemple très imparfait 
+  - [github.com/labordynamicsinstitute/very-imperfect-example](https://github.com/labordynamicsinstitute/very-imperfect-example)
+  - Comment télécharger de Github
+  - Répliquons!
+
+
+
+# Day 2
+
+
+```{r, child=c('toc2.md')}
+```
+
+## Détails {.smaller}
+
+- 9:00 Discussion de la réussite de l'exercice "Very imperfect example"
+
+- 9:30 Documenting it all: the template README 
+  - [https://social-science-data-editors.github.io/template_README/](https://social-science-data-editors.github.io/template_README/)
+
+
+## Détails {.smaller}
+
+- 10:00 How to run Stata
+  - Concept of the working directory 
+  - How to dynamically use the working directory
+  - Alternatives: here package in other programming languages (Matlab, R), also in Stata 
+    - Stata https://github.com/korenmiklos/here 
+    - R https://here.r-lib.org/ https://cran.r-project.org/web/packages/rprojroot/rprojroot.pdf 
+    - Keep it simple: the right-click method (Windows), the command line method (Mac/Linux)
+  - Try it out (30 minutes)
+- 10:30 Extra: How to install Stata packages
+- 10:45 Break
+
+## Détails {.smaller}
+
+- 11:00 Data provenance
+  - Data citations (15 min)
+  - Data provenance: beyond citations
+    - Complex examples: IPUMS, WDI, DHS
+  - Source of the US Census data 
+  - Authoritative vs. random sources
+
+## Détails {.smaller}
+
+- 12:00 Break (1h)
+
+## Détails {.smaller}
+
+- 13:00 When data cleaning is critical
+  - Your project doesn't start with the analysis data (no "trust me")
+  - Find the problem!
+  - Try it out: 30 minutes
+
+## Détails {.smaller}
+
+- 13:30 Completing the template README
+  - Documenting data provenance
+  - The role of licenses and permissions 
+
+  
+## Détails {.smaller}
+
+- 14:00 Depositing a replication package
+  - Gentle introduction to Zenodo (sandbox) (or Dataverse)
+  - Uploading - Zipfiles vs. individual files?
+  - Metadata
+  - Pressing publish - what happens?
+  - Updating a replication package
+- 14:30  Break
+
+## Détails {.smaller}
+
+- 14:45 Testing it all
+  - So you have it all?
+  - Let's try that again: Run your neighbor's replication package in 10 minutes
+  - (30 minutes)
+
+## Détails {.smaller}
+
+- 15:15 Wrap-up
+  - Group discussion
+  - Questions
+- 16:00 (ou plus tôt): Fin.
+
+
+```{r, child=c('toc.md')}
+```
+
