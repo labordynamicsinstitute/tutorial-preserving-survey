@@ -215,8 +215,8 @@ Laurel Krovetz
 </section>
 <section id="quick-tutorial-on-preserving-survey-data" class="slide level2 center">
 <h2>Quick tutorial on preserving survey data</h2>
-<p>In this presentation we’ll show you how to process survey data using a live example.</p>
-<p>We’ve created a short survey that you can fill out if you want to contribute your own responses. We’ll then show you live summary data and provide a demonstration of how to process this data to remove confidential data.</p>
+<p>In this presentation we’ll show you how to process and preserve survey data.</p>
+<p>We’ve created a short survey that you can fill out if you want to contribute your own responses. First we’ll show you how to clean the data and remove confidential data in order to create a publishable dataset. Then we’ll apply these methods to our survey’s data.</p>
 </section>
 <section id="take-our-survey" class="slide level2 smaller center">
 <h2>Take our survey</h2>
@@ -245,58 +245,75 @@ Laurel Krovetz
 <section id="creating-a-survey-in-qualtrics-1" class="slide level2 center">
 <h2>Creating a survey in Qualtrics</h2>
 
-<img data-src="images/qualtrics-edit.png" class="r-stretch quarto-figure-center"><p class="caption">Qualtrics-Edit</p></section>
-<section id="exporting-qualtrics-data" class="slide level2 center">
-<h2>Exporting Qualtrics Data</h2>
+<img data-src="images/qualtrics-edit.png" class="r-stretch"></section>
+<section id="survey-responses-in-qualtrics" class="slide level2 center">
+<h2>Survey responses in Qualtrics</h2>
 
-<img data-src="images/qualtricsc-export.png" class="r-stretch quarto-figure-center"><p class="caption">Qualtrics-export</p></section></section>
+<img data-src="images/qualtricsc-data.png" class="r-stretch"></section></section>
 <section>
-<section id="processing-data-in-stata" class="title-slide slide level1 center">
-<h1>Processing data in stata</h1>
+<section id="processing-data-in-r" class="title-slide slide level1 center">
+<h1>Processing data in R</h1>
 
 </section>
-<section id="processing-survey-data-in-stata" class="slide level2 center">
-<h2>Processing survey data in stata</h2>
-<p>After exporting the raw survey data and loading it into stata you’ll need to clean it up a bit.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href=""></a>import delimeted <span class="st">"${filepath}/data/raw/survey_data.csv"</span>, varnames(1) <span class="kw">clear</span></span>
-<span id="cb1-2"><a href=""></a></span>
-<span id="cb1-3"><a href=""></a>** cleaning <span class="kw">data</span></span>
-<span id="cb1-4"><a href=""></a><span class="kw">drop</span> <span class="kw">if</span> <span class="dt">_n</span>&lt;=2 <span class="co">// drop first two rows of data, don't contain survey responses</span></span>
+<section id="loading-data-from-qualtrics-using-api" class="slide level2 center">
+<h2>Loading data from Qualtrics using API</h2>
+<p>In order to always be analyzing the most up to data survey responses, we can load the data directly from the web using a Qualtrics API:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># qualtrics URL components</span></span>
+<span id="cb1-2"><a href=""></a>QUALTRICS_FULL_URL <span class="ot">&lt;-</span> <span class="st">"first part of survey URL"</span></span>
+<span id="cb1-3"><a href=""></a></span>
+<span id="cb1-4"><a href=""></a>QUALTRICS_SURVEY <span class="ot">&lt;-</span> <span class="st">"second part of survey URL, usually starts with SV"</span></span>
 <span id="cb1-5"><a href=""></a></span>
-<span id="cb1-6"><a href=""></a><span class="kw">label</span> <span class="kw">var</span> consent <span class="st">"Consent"</span> <span class="co">// labelling variables for readability</span></span>
-<span id="cb1-7"><a href=""></a><span class="kw">label</span> <span class="kw">var</span> age_1 <span class="st">"Age in years"</span></span>
-<span id="cb1-8"><a href=""></a><span class="kw">label</span> <span class="kw">var</span> gender <span class="st">"Gender"</span></span>
-<span id="cb1-9"><a href=""></a><span class="kw">label</span> <span class="kw">var</span> education <span class="st">"Highest level of education completed"</span></span>
-<span id="cb1-10"><a href=""></a><span class="kw">label</span> <span class="kw">var</span> num_tabs_1 <span class="st">"Number of computer tabs open"</span></span>
-<span id="cb1-11"><a href=""></a><span class="kw">label</span> <span class="kw">var</span> name_confidential <span class="st">"Respondent name"</span></span>
-<span id="cb1-12"><a href=""></a><span class="kw">label</span> <span class="kw">var</span> number_confidential <span class="st">"Respondent phone number"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href=""></a><span class="co"># Keep only responses in the desired window of time</span></span>
+<span id="cb1-7"><a href=""></a>QUALTRICS_STIME <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2025-07-01 00:00:01"</span>)</span>
+<span id="cb1-8"><a href=""></a>QUALTRICS_ETIME <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2025-08-26 23:59:00"</span>)</span>
+<span id="cb1-9"><a href=""></a></span>
+<span id="cb1-10"><a href=""></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>))) {</span>
+<span id="cb1-11"><a href=""></a>  <span class="fu">dir.create</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>))</span>
+<span id="cb1-12"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="processing-survey-data-in-stata-1" class="slide level2 center">
-<h2>Processing survey data in stata</h2>
-<p>Next we need to drop those who did not consent to participate.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href=""></a><span class="kw">drop</span> <span class="kw">if</span> consent==<span class="st">"No"</span> <span class="co">// dropping data for those who didn't consent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="loading-data-from-qualtrics-using-api-1" class="slide level2 center">
+<h2>Loading data from Qualtrics using API</h2>
+<p>Here we actually load the data. Notice we filtered the data to only include those who responded “Yes” to the consent question and also removed observations that were completed as survey previews.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="do">## load data from qualtrics survey using API</span></span>
+<span id="cb2-2"><a href=""></a><span class="cf">if</span> (<span class="fu">Sys.getenv</span>(<span class="st">"QUALTRICS_API_KEY"</span>) <span class="sc">!=</span> <span class="st">""</span>) {</span>
+<span id="cb2-3"><a href=""></a>  data.raw <span class="ot">&lt;-</span> <span class="fu">fetch_survey</span>(<span class="at">surveyID =</span> QUALTRICS_SURVEY, <span class="at">verbose =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb2-4"><a href=""></a>  data <span class="ot">&lt;-</span> data.raw <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href=""></a>    <span class="fu">filter</span>(Status <span class="sc">!=</span> <span class="st">"Survey Preview"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href=""></a>    <span class="fu">filter</span>(consent <span class="sc">==</span> <span class="st">"Yes"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href=""></a>    <span class="fu">filter</span>(StartDate <span class="sc">&gt;</span> QUALTRICS_STIME <span class="sc">&amp;</span> EndDate <span class="sc">&lt;</span> QUALTRICS_ETIME) <span class="sc">|&gt;</span></span>
+<span id="cb2-8"><a href=""></a>    <span class="fu">select</span>(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,consent,age_1,gender,education,num_tabs_1,name_confidential,number_confidential)</span>
+<span id="cb2-9"><a href=""></a>} <span class="cf">else</span> {</span>
+<span id="cb2-10"><a href=""></a>  data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb2-11"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="processing-survey-data-in-stata-2" class="slide level2 center">
-<h2>Processing survey data in stata</h2>
-<p>Lastly we need to save the confidential cleaned data that we don’t publish to the relevant folder, remove the confidential data, and save the cleaned publishable data to its relevant folder.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href=""></a>** <span class="kw">save</span> confidential <span class="kw">data</span> NOT <span class="kw">for</span> publishing</span>
-<span id="cb3-2"><a href=""></a><span class="kw">save</span> <span class="st">"${filepath}/data/confidential/survey_data_clean_confidential.dta"</span>, <span class="kw">replace</span> </span>
-<span id="cb3-3"><a href=""></a></span>
-<span id="cb3-4"><a href=""></a>** remove confidential <span class="kw">data</span></span>
-<span id="cb3-5"><a href=""></a><span class="kw">drop</span> name_confidential number_confidential</span>
-<span id="cb3-6"><a href=""></a></span>
-<span id="cb3-7"><a href=""></a>** <span class="kw">saving</span> <span class="kw">clean</span> <span class="kw">data</span> <span class="kw">for</span> publishing</span>
-<span id="cb3-8"><a href=""></a><span class="kw">save</span> <span class="st">"${filepath}/data/clean/survey_data_clean.dta"</span>, <span class="kw">replace</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="cleaning-data" class="slide level2 center">
+<h2>Cleaning data</h2>
+<p>Next we need to remove confidential data (variables <code>name_confidential</code> and <code>number_confidential</code>). We create a new dataset called “clean_data.”</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>clean_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>name_confidential, <span class="sc">-</span>number_confidential)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="saving-confidential-and-clean-data" class="slide level2 center">
+<h2>Saving confidential and clean data</h2>
+<p>Lastly we need to save the confidential cleaned data that we don’t publish to the relevant folder, and save the cleaned publishable data to its relevant folder.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="sc">**</span> save confidential data NOT <span class="cf">for</span> publishing</span>
+<span id="cb4-2"><a href=""></a><span class="fu">write.csv</span>(data, <span class="st">"relevant file path/data/confidential/confidential_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-3"><a href=""></a></span>
+<span id="cb4-4"><a href=""></a><span class="sc">**</span> saving clean data <span class="cf">for</span> publishing</span>
+<span id="cb4-5"><a href=""></a><span class="fu">write.csv</span>(data, <span class="st">"relevant file path/data/clean/clean_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="descriptive-statistics" class="slide level2 center">
 <h2>Descriptive statistics</h2>
-<p>Lastly, you are now ready to use your cleaned data for reproducible analyses!</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource stata number-lines code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href=""></a>** summary <span class="kw">statistics</span></span>
-<span id="cb4-2"><a href=""></a><span class="kw">sum</span> age_1, <span class="kw">detail</span></span>
-<span id="cb4-3"><a href=""></a><span class="kw">sum</span> num_tabs_1, <span class="kw">detail</span></span>
-<span id="cb4-4"><a href=""></a></span>
-<span id="cb4-5"><a href=""></a><span class="kw">tab</span> gender</span>
-<span id="cb4-6"><a href=""></a><span class="kw">tab</span> education</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now you are now ready to publish and use your cleaned data for reproducible analyses!</p>
+</section></section>
+<section>
+<section id="survey-results" class="title-slide slide level1 center">
+<h1>Survey results</h1>
+
+</section>
+<section id="survey-results-1" class="slide level2 center">
+<h2>Survey results</h2>
+<p>Now, let’s go look at our survey results.</p>
+<p>[Results link][LINK GOES HERE]</p>
 
 </section></section>
     </div>
