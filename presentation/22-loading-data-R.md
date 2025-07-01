@@ -1,6 +1,6 @@
 ## Loading data from Qualtrics using API
 
-Here we actually load the data. Notice we filtered the data to only include those who responded "Yes" to the consent question and also removed observations that were completed as survey previews. 
+Here we load the data using the API. Notice we filtered the data to only include those who responded "Yes" to the consent question and also removed observations that were completed as survey previews. 
 
 ```{.R}
 ## load data from qualtrics survey using API

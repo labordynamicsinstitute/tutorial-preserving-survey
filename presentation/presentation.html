@@ -273,33 +273,41 @@ Laurel Krovetz
 </section>
 <section id="loading-data-from-qualtrics-using-api-1" class="slide level2 center">
 <h2>Loading data from Qualtrics using API</h2>
-<p>Here we actually load the data. Notice we filtered the data to only include those who responded “Yes” to the consent question and also removed observations that were completed as survey previews.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="do">## load data from qualtrics survey using API</span></span>
-<span id="cb2-2"><a href=""></a><span class="cf">if</span> (<span class="fu">Sys.getenv</span>(<span class="st">"QUALTRICS_API_KEY"</span>) <span class="sc">!=</span> <span class="st">""</span>) {</span>
-<span id="cb2-3"><a href=""></a>  data.raw <span class="ot">&lt;-</span> <span class="fu">fetch_survey</span>(<span class="at">surveyID =</span> QUALTRICS_SURVEY, <span class="at">verbose =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb2-4"><a href=""></a>  data <span class="ot">&lt;-</span> data.raw <span class="sc">|&gt;</span></span>
-<span id="cb2-5"><a href=""></a>    <span class="fu">filter</span>(Status <span class="sc">!=</span> <span class="st">"Survey Preview"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href=""></a>    <span class="fu">filter</span>(consent <span class="sc">==</span> <span class="st">"Yes"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-7"><a href=""></a>    <span class="fu">filter</span>(StartDate <span class="sc">&gt;</span> QUALTRICS_STIME <span class="sc">&amp;</span> EndDate <span class="sc">&lt;</span> QUALTRICS_ETIME) <span class="sc">|&gt;</span></span>
-<span id="cb2-8"><a href=""></a>    <span class="fu">select</span>(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,consent,age_1,gender,education,num_tabs_1,name_confidential,number_confidential)</span>
-<span id="cb2-9"><a href=""></a>} <span class="cf">else</span> {</span>
-<span id="cb2-10"><a href=""></a>  data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb2-11"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>An API token is assigned to your Qualtrics account and is used to request data from a survey.</p>
+<p>The API token is stored as a secret in Github using environmental variables:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource plaintext number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href=""></a>echo "QUALTRICS_API_KEY=${{ secrets.QUALTRICS_API_KEY }}" &gt;&gt; $GITHUB_ENV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, in your publishable R code, you can simply refer to “<code>QUALTRICS_API_KEY</code>” in your code so as to not give away your API token.</p>
+<p>Let’s see how this works in the next slide:</p>
+</section>
+<section id="loading-data-from-qualtrics-using-api-2" class="slide level2 center">
+<h2>Loading data from Qualtrics using API</h2>
+<p>Here we load the data using the API. Notice we filtered the data to only include those who responded “Yes” to the consent question and also removed observations that were completed as survey previews.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="do">## load data from qualtrics survey using API</span></span>
+<span id="cb3-2"><a href=""></a><span class="cf">if</span> (<span class="fu">Sys.getenv</span>(<span class="st">"QUALTRICS_API_KEY"</span>) <span class="sc">!=</span> <span class="st">""</span>) {</span>
+<span id="cb3-3"><a href=""></a>  data.raw <span class="ot">&lt;-</span> <span class="fu">fetch_survey</span>(<span class="at">surveyID =</span> QUALTRICS_SURVEY, <span class="at">verbose =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb3-4"><a href=""></a>  data <span class="ot">&lt;-</span> data.raw <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href=""></a>    <span class="fu">filter</span>(Status <span class="sc">!=</span> <span class="st">"Survey Preview"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href=""></a>    <span class="fu">filter</span>(consent <span class="sc">==</span> <span class="st">"Yes"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href=""></a>    <span class="fu">filter</span>(StartDate <span class="sc">&gt;</span> QUALTRICS_STIME <span class="sc">&amp;</span> EndDate <span class="sc">&lt;</span> QUALTRICS_ETIME) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href=""></a>    <span class="fu">select</span>(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,consent,age_1,gender,education,num_tabs_1,name_confidential,number_confidential)</span>
+<span id="cb3-9"><a href=""></a>} <span class="cf">else</span> {</span>
+<span id="cb3-10"><a href=""></a>  data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb3-11"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="cleaning-data" class="slide level2 center">
 <h2>Cleaning data</h2>
 <p>Next we need to remove confidential data (variables <code>name_confidential</code> and <code>number_confidential</code>). We create a new dataset called “clean_data.”</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>clean_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>name_confidential, <span class="sc">-</span>number_confidential)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>clean_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>name_confidential, <span class="sc">-</span>number_confidential)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="saving-confidential-and-clean-data" class="slide level2 center">
 <h2>Saving confidential and clean data</h2>
 <p>Lastly we need to save the confidential cleaned data that we don’t publish to the relevant folder, and save the cleaned publishable data to its relevant folder.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="sc">**</span> save confidential data NOT <span class="cf">for</span> publishing</span>
-<span id="cb4-2"><a href=""></a><span class="fu">write.csv</span>(data, <span class="st">"relevant file path/data/confidential/confidential_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-3"><a href=""></a></span>
-<span id="cb4-4"><a href=""></a><span class="sc">**</span> saving clean data <span class="cf">for</span> publishing</span>
-<span id="cb4-5"><a href=""></a><span class="fu">write.csv</span>(data, <span class="st">"relevant file path/data/clean/clean_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="sc">**</span> save confidential data NOT <span class="cf">for</span> publishing</span>
+<span id="cb5-2"><a href=""></a><span class="fu">write.csv</span>(data, <span class="st">"relevant file path/data/confidential/confidential_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a><span class="sc">**</span> saving clean data <span class="cf">for</span> publishing</span>
+<span id="cb5-5"><a href=""></a><span class="fu">write.csv</span>(data, <span class="st">"relevant file path/data/clean/clean_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="descriptive-statistics" class="slide level2 center">
 <h2>Descriptive statistics</h2>

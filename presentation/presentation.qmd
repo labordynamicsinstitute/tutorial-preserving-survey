@@ -71,13 +71,16 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 ```{r, child=c(here::here("presentation",'20-processing-R.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'21-processing-R.md'))}
+```{r, child=c(here::here("presentation",'21-API-key.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'22-processing-R.md'))}
+```{r, child=c(here::here("presentation",'22-loading-data-R.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'23-processing-R.md'))}
+```{r, child=c(here::here("presentation",'23-cleaning-R.md'))}
+```
+
+```{r, child=c(here::here("presentation",'24-processing-R.md'))}
 ```
 
 ```{r, child=c(here::here("presentation",'30-present-data.md'))}
