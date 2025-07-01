@@ -48,12 +48,12 @@ QUALTRICS_FULL_URL <- "https://cornell.yul1.qualtrics.com/jfe/form"
 
 # Public Qualtrics URL for day 2
 
-QUALTRICS_SURVEY <- "SV_cNkhKL69K2Ob7o2"
+QUALTRICS_SURVEY <- "SV_8Bbgqex21KyYDFY"
 
 # Time when this was posted (discard anything before that)
 
-QUALTRICS_STIME <- ymd_hms("2025-04-30 23:59:00")
-QUALTRICS_ETIME <- ymd_hms("2025-05-26 23:59:00")
+QUALTRICS_STIME <- ymd_hms("2025-07-01 00:00:01")
+QUALTRICS_ETIME <- ymd_hms("2025-08-26 23:59:00")
 
 
 if (!dir.exists(here::here("data"))) {
@@ -68,13 +68,13 @@ if (!dir.exists(here::here("data"))) {
 Here we will demonstrate how to preserve raw survey data and also how to handle confidential data. We will do so with data from a  survey that you all will provide responses to. Some of the questions are meant to elicit "confidential" information from you as responses. You should not give your actual confidential information in response to these questions. We will use these questions as way to teach how to preserve data when some data are confidential. 
 
 
-## Live Survey 
+## Survey 
 
 Please fill out this  survey:
 
 <`r file.path(QUALTRICS_FULL_URL,QUALTRICS_SURVEY)`>
 
-### Live Results
+### Results
 ```{r downloaddata,include=FALSE}
 # download data to local location
 
@@ -83,28 +83,63 @@ if (Sys.getenv("QUALTRICS_API_KEY") != "") {
   data.raw <- fetch_survey(surveyID = QUALTRICS_SURVEY, verbose = TRUE) 
   data <- data.raw |>
           filter(Status != "Survey Preview") |>
-          filter(Consent == "I agree that my data will be used in the manner described.") |>
+          filter(consent == "Yes") |>
           filter(StartDate > QUALTRICS_STIME & EndDate < QUALTRICS_ETIME) |>
     # renaming variables
-    select(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,Consent,Preferred_topic,Degree,JEL_primary,
-          starts_with("JEL_secondary"),starts_with("Versioning_"))
+    select(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,consent,age_1,gender,education,num_tabs_1,name_confidential,number_confidential)
 } else {
   data <- data.frame()
 }
 
 ```
 
-```{r create_table2, results='asis', include=TRUE,echo=FALSE,message=FALSE}
+```{r gender_table, results='asis', include=TRUE,echo=FALSE,message=FALSE}
 
 if ( nrow(data) >0 ) {
 data |>
-  select(Preferred_topic) |>
-  group_by(Preferred_topic) |>
+  select(gender) |>
+  group_by(gender) |>
   summarise(Frequency=n()) |>
   ungroup() |>
   mutate(Percent = round(Frequency/nrow(data)*100,2)) -> data.table
 
 data.table |> kable()
+} else {
+  cat("No data yet. Check back later.")
+}
+```
+
+```{r education_table, results='asis', include=TRUE,echo=FALSE,message=FALSE}
+if ( nrow(data) >0 ) {
+data |>
+  select(education) |>
+  group_by(education) |>
+  summarise(Frequency=n()) |>
+  ungroup() |>
+  mutate(Percent = round(Frequency/nrow(data)*100,2)) -> data.table
+
+data.table |> kable()
+} else {
+  cat("No data yet. Check back later.")
+}
+```
+
+```{r age_table, results='asis', echo=FALSE, message=FALSE}
+if (nrow(data) > 0) {
+  cat("### Age")
+  var_data <- data$age_1
+  summary_stats <- data.frame(
+    Statistic = c("Count", "Mean", "Median", "Min", "Max", "Sts. Dev."),
+    Value = c(
+      sum(!is.na(var_data)),
+      mean(var_data, na.rm = TRUE),
+      median(var_data, na.rm = TRUE),
+      min(var_data, na.rm = TRUE),
+      max(var_data, na.rm = TRUE),
+      sd(var_data, na.rm = TRUE)
+    )
+  )
+  print(knitr::kable(summary_stats, digits = 2))
 } else {
   cat("No data yet. Check back later.")
 }
