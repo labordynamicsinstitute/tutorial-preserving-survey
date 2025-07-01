@@ -46,7 +46,7 @@ WEBSITE_URL <- paste0("https://", GITHUB_REPOSITORY_PARTS[1], ".github.io/", GIT
 
 QUALTRICS_FULL_URL <- "https://cornell.yul1.qualtrics.com/jfe/form"
 
-# Public Qualtrics URL for day 2
+# Public Qualtrics URL
 
 QUALTRICS_SURVEY <- "SV_8Bbgqex21KyYDFY"
 
@@ -168,6 +168,6 @@ if (nrow(data) > 0) {
 
 ## Why
 
-Lorem ipso facto.
+For more information and steps on how to start creating a survey in Qualtrics, how to process and clean the data to remove confidential data, see this [presentation](LINK TO PRESENTATION GOES HERE).
 
 :::
