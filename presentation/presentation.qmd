@@ -94,10 +94,13 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 ```
 
 # Keeping your secrets secret
-```{r, child=c(here::here("presentation",'50-API-key-secret.md'))}
+```{r, child=c(here::here("presentation",'50-secrets.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'51-API-key-workflow.md'))}
+```{r, child=c(here::here("presentation",'51-API-key-secret.md'))}
+```
+
+```{r, child=c(here::here("presentation",'52-API-key-workflow.md'))}
 ```
 
 ```{r, child=c(here::here("presentation",'end.md'))}
