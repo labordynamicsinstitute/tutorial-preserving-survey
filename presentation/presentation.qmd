@@ -49,13 +49,16 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 
 ```
 
-```{r, child=c(here::here("presentation",'00-introduction.md'))}
+```{r, child=c(here::here("presentation",'00-introduction1.md'))}
+```
+
+```{r, child=c(here::here("presentation",'00-introduction2.md'))}
 ```
 
 ```{r, child=c(here::here("presentation",'00-survey-qrcode.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'01-goal.md'))}
+```{r, child=c(here::here("presentation",'01-goals.md'))}
 ```
 
 # Creating a survey in Qualtrics
@@ -88,4 +91,14 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 
 # Survey results
 ```{r, child=c(here::here("presentation",'40-survey-results.md'))}
+```
+
+# Keeping your secrets secret
+```{r, child=c(here::here("presentation",'50-API-key-secret.md'))}
+```
+
+```{r, child=c(here::here("presentation",'51-API-key-workflow.md'))}
+```
+
+```{r, child=c(here::here("presentation",'end.md'))}
 ```

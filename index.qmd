@@ -82,8 +82,8 @@ Please fill out this  survey:
 if (Sys.getenv("QUALTRICS_API_KEY") != "") {
   data.raw <- fetch_survey(surveyID = QUALTRICS_SURVEY, verbose = TRUE) 
   data <- data.raw |>
-          filter(Status != "Survey Preview") |>
           filter(consent == "Yes") |>
+          filter(Status != "Survey Preview") |>
           filter(StartDate > QUALTRICS_STIME & EndDate < QUALTRICS_ETIME) |>
     # renaming variables
     select(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,consent,age_1,gender,education,num_tabs_1,name_confidential,number_confidential)

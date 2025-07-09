@@ -2,12 +2,11 @@
 
 An API token is assigned to your Qualtrics account and is used to request data from a survey. 
 
-The API token is stored as a secret in Github using environmental variables:
+You can set it directly in your R code:
 
-```plaintext
-echo "QUALTRICS_API_KEY=${{ secrets.QUALTRICS_API_KEY }}" >> $GITHUB_ENV
+``` {.R}
+Sys.setenv(QUALTRICS_API_KEY = "your-token")
 ```
+However, this token is your secret token and you don't want this appearing in your published code.
 
-Then, in your publishable R code, you can simply refer to "`QUALTRICS_API_KEY`" in your code so as to not give away your API token. 
-
-Let's see how this works in the next slide:
+We'll revisit in later slides how to fix this issue for sharable code.

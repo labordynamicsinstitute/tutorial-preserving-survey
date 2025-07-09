@@ -216,7 +216,11 @@ Laurel Krovetz
 <section id="quick-tutorial-on-preserving-survey-data" class="slide level2 center">
 <h2>Quick tutorial on preserving survey data</h2>
 <p>In this presentation we’ll show you how to process and preserve survey data.</p>
-<p>We’ve created a short survey that you can fill out if you want to contribute your own responses. First we’ll show you how to clean the data and remove confidential data in order to create a publishable dataset. Then we’ll apply these methods to our survey’s data.</p>
+<p>We’ll use an API to retrieve the data, show you how to clean and strip the data of confidential information and non-consenting responses in order to create a publishable dataset.</p>
+</section>
+<section id="quick-tutorial-on-preserving-survey-data-1" class="slide level2 center">
+<h2>Quick tutorial on preserving survey data</h2>
+<p>We’ve created a short survey for demonstration that you can fill out if you want to contribute your own responses.</p>
 </section>
 <section id="take-our-survey" class="slide level2 smaller center">
 <h2>Take our survey</h2>
@@ -232,8 +236,9 @@ Laurel Krovetz
 <section id="goals" class="slide level2 center">
 <h2>Goals</h2>
 <ul class="task-list">
-<li><label><input type="checkbox">Create a survey in Qualtrics to use for data collection.</label></li>
-<li><label><input type="checkbox">Clean and process the data to remove non-consenters and any confidential data.</label></li>
+<li><label><input type="checkbox">Create a survey in Qualtrics for data collection.</label></li>
+<li><label><input type="checkbox">Load the latest responses from the server using an API token.</label></li>
+<li><label><input type="checkbox">Clean and process the data to remove non-consenting responses and any confidential data.</label></li>
 <li><label><input type="checkbox">Create and publish usable data that does not reveal any confidential data.</label></li>
 </ul>
 </section>
@@ -244,10 +249,12 @@ Laurel Krovetz
 </section>
 <section id="creating-a-survey-in-qualtrics-1" class="slide level2 center">
 <h2>Creating a survey in Qualtrics</h2>
+<p>You’ll typically have access to a Qualtrics account through your university or organization. Then it is easy to construct a survey using the web tool.</p>
 
 <img data-src="images/qualtrics-edit.png" class="r-stretch"></section>
 <section id="survey-responses-in-qualtrics" class="slide level2 center">
 <h2>Survey responses in Qualtrics</h2>
+<p>Responses can be easily checked at a glance in the <code>Data and Analytics</code> tab. You can download data directly from this page, but to make sure you are always using the most up to date data, downloading directly via an API token is a more efficient way to access your data.</p>
 
 <img data-src="images/qualtricsc-data.png" class="r-stretch"></section></section>
 <section>
@@ -255,9 +262,9 @@ Laurel Krovetz
 <h1>Processing data in R</h1>
 
 </section>
-<section id="loading-data-from-qualtrics-using-api" class="slide level2 center">
-<h2>Loading data from Qualtrics using API</h2>
-<p>In order to always be analyzing the most up to data survey responses, we can load the data directly from the web using a Qualtrics API:</p>
+<section id="loading-data-from-qualtrics-using-an-api" class="slide level2 center">
+<h2>Loading data from Qualtrics using an API</h2>
+<p>In order to always be analyzing the most up to date survey responses, load the data directly from the web using a Qualtrics API. Here is some initial set up:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># qualtrics URL components</span></span>
 <span id="cb1-2"><a href=""></a>QUALTRICS_FULL_URL <span class="ot">&lt;-</span> <span class="st">"first part of survey URL"</span></span>
 <span id="cb1-3"><a href=""></a></span>
@@ -265,63 +272,83 @@ Laurel Krovetz
 <span id="cb1-5"><a href=""></a></span>
 <span id="cb1-6"><a href=""></a><span class="co"># Keep only responses in the desired window of time</span></span>
 <span id="cb1-7"><a href=""></a>QUALTRICS_STIME <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2025-07-01 00:00:01"</span>)</span>
-<span id="cb1-8"><a href=""></a>QUALTRICS_ETIME <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2025-08-26 23:59:00"</span>)</span>
-<span id="cb1-9"><a href=""></a></span>
-<span id="cb1-10"><a href=""></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>))) {</span>
-<span id="cb1-11"><a href=""></a>  <span class="fu">dir.create</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>))</span>
-<span id="cb1-12"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href=""></a>QUALTRICS_ETIME <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2025-08-26 23:59:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="loading-data-from-qualtrics-using-api" class="slide level2 center">
+<h2>Loading data from Qualtrics using API</h2>
+<p>An API token is assigned to your Qualtrics account and is used to request data from a survey.</p>
+<p>You can set it directly in your R code:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">Sys.setenv</span>(<span class="at">QUALTRICS_API_KEY =</span> <span class="st">"your-token"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>However, this token is your secret token and you don’t want this appearing in your published code.</p>
+<p>We’ll revisit in later slides how to fix this issue for sharable code.</p>
 </section>
 <section id="loading-data-from-qualtrics-using-api-1" class="slide level2 center">
 <h2>Loading data from Qualtrics using API</h2>
-<p>An API token is assigned to your Qualtrics account and is used to request data from a survey.</p>
-<p>The API token is stored as a secret in Github using environmental variables:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource plaintext number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href=""></a>echo "QUALTRICS_API_KEY=${{ secrets.QUALTRICS_API_KEY }}" &gt;&gt; $GITHUB_ENV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then, in your publishable R code, you can simply refer to “<code>QUALTRICS_API_KEY</code>” in your code so as to not give away your API token.</p>
-<p>Let’s see how this works in the next slide:</p>
-</section>
-<section id="loading-data-from-qualtrics-using-api-2" class="slide level2 center">
-<h2>Loading data from Qualtrics using API</h2>
-<p>Here we load the data using the API. Notice we filtered the data to only include those who responded “Yes” to the consent question and also removed observations that were completed as survey previews.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="do">## load data from qualtrics survey using API</span></span>
-<span id="cb3-2"><a href=""></a><span class="cf">if</span> (<span class="fu">Sys.getenv</span>(<span class="st">"QUALTRICS_API_KEY"</span>) <span class="sc">!=</span> <span class="st">""</span>) {</span>
-<span id="cb3-3"><a href=""></a>  data.raw <span class="ot">&lt;-</span> <span class="fu">fetch_survey</span>(<span class="at">surveyID =</span> QUALTRICS_SURVEY, <span class="at">verbose =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb3-4"><a href=""></a>  data <span class="ot">&lt;-</span> data.raw <span class="sc">|&gt;</span></span>
+<p>After setting the API token, we use it to load the data. We filter the data to only include those who consented, remove survey preview responses, and remove responses that took place outside the relevant window.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="cf">if</span> (<span class="fu">Sys.getenv</span>(<span class="st">"QUALTRICS_API_KEY"</span>) <span class="sc">!=</span> <span class="st">""</span>) {</span>
+<span id="cb3-2"><a href=""></a>  data.raw <span class="ot">&lt;-</span> <span class="fu">fetch_survey</span>(<span class="at">surveyID =</span> QUALTRICS_SURVEY, <span class="at">verbose =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb3-3"><a href=""></a>  data <span class="ot">&lt;-</span> data.raw <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href=""></a>    <span class="fu">filter</span>(consent <span class="sc">==</span> <span class="st">"Yes"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb3-5"><a href=""></a>    <span class="fu">filter</span>(Status <span class="sc">!=</span> <span class="st">"Survey Preview"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-6"><a href=""></a>    <span class="fu">filter</span>(consent <span class="sc">==</span> <span class="st">"Yes"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-7"><a href=""></a>    <span class="fu">filter</span>(StartDate <span class="sc">&gt;</span> QUALTRICS_STIME <span class="sc">&amp;</span> EndDate <span class="sc">&lt;</span> QUALTRICS_ETIME) <span class="sc">|&gt;</span></span>
-<span id="cb3-8"><a href=""></a>    <span class="fu">select</span>(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,consent,age_1,gender,education,num_tabs_1,name_confidential,number_confidential)</span>
-<span id="cb3-9"><a href=""></a>} <span class="cf">else</span> {</span>
-<span id="cb3-10"><a href=""></a>  data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb3-11"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href=""></a>    <span class="fu">filter</span>(StartDate <span class="sc">&gt;</span> QUALTRICS_STIME <span class="sc">&amp;</span> EndDate <span class="sc">&lt;</span> QUALTRICS_ETIME) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href=""></a>    <span class="fu">select</span>(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,consent,age_1,gender,education,num_tabs_1,name_confidential,number_confidential)</span>
+<span id="cb3-8"><a href=""></a>} <span class="cf">else</span> {</span>
+<span id="cb3-9"><a href=""></a>  data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb3-10"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="cleaning-data" class="slide level2 center">
 <h2>Cleaning data</h2>
-<p>Next we need to remove confidential data (variables <code>name_confidential</code> and <code>number_confidential</code>). We create a new dataset called “clean_data.”</p>
+<p>Next we need to remove confidential data (variables <code>name_confidential</code> and <code>number_confidential</code> in our survey). We create a new dataset called “clean_data.”</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>clean_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>name_confidential, <span class="sc">-</span>number_confidential)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="saving-confidential-and-clean-data" class="slide level2 center">
 <h2>Saving confidential and clean data</h2>
-<p>Lastly we need to save the confidential cleaned data that we don’t publish to the relevant folder, and save the cleaned publishable data to its relevant folder.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="sc">**</span> save confidential data NOT <span class="cf">for</span> publishing</span>
+<p>Lastly we need to save the confidential cleaned data that we don’t publish to the relevant folder, and save the cleaned publishable data to the relevant folder.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># save confidential data NOT for publishing</span></span>
 <span id="cb5-2"><a href=""></a><span class="fu">write.csv</span>(data, <span class="st">"relevant file path/data/confidential/confidential_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb5-3"><a href=""></a></span>
-<span id="cb5-4"><a href=""></a><span class="sc">**</span> saving clean data <span class="cf">for</span> publishing</span>
+<span id="cb5-4"><a href=""></a><span class="co"># saving clean data for publishing</span></span>
 <span id="cb5-5"><a href=""></a><span class="fu">write.csv</span>(data, <span class="st">"relevant file path/data/clean/clean_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="descriptive-statistics" class="slide level2 center">
 <h2>Descriptive statistics</h2>
 <p>Now you are now ready to publish and use your cleaned data for reproducible analyses!</p>
 </section></section>
-<section>
 <section id="survey-results" class="title-slide slide level1 center">
 <h1>Survey results</h1>
-
-</section>
-<section id="survey-results-1" class="slide level2 center">
-<h2>Survey results</h2>
 <p>Now, let’s go look at our survey results.</p>
 <p>[Results link][LINK GOES HERE]</p>
+</section>
+
+<section>
+<section id="keeping-your-secrets-secret" class="title-slide slide level1 center">
+<h1>Keeping your secrets secret</h1>
+
+</section>
+<section id="storing-secrets-in-github" class="slide level2 center">
+<h2>Storing secrets in GitHub</h2>
+<p>You can store your Qualtrics secrets in an <code>.Renviron</code> file that you keep in the root of your project that contains the following information:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource plaintext number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href=""></a>QUALTRICS_API_KEY='something here'</span>
+<span id="cb6-2"><a href=""></a>QUALTRICS_BASE_URL='XXXX.qualtrics.com'</span>
+<span id="cb6-3"><a href=""></a>DATAVERSE_TOKEN='somethingelse'</span>
+<span id="cb6-4"><a href=""></a>DATAVERSE_SERVER='https://demo.dataverse.org'</span>
+<span id="cb6-5"><a href=""></a>DATAVERSE_DATASET_DOI='doi:10.70122/xxx/xxxxx'</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You’ll fill out the relevant missing information.</p>
+<p>Then you will set the GitHub Actions secrets with</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource plaintext number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href=""></a>gh secret set -f .Renviron</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="storing-secrets-in-github-1" class="slide level2 center">
+<h2>Storing secrets in GitHub</h2>
+<p>Then in GitHub workflows you can set your environment variables to be used in your code, such as the API key:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource plaintext number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href=""></a>echo "QUALTRICS_API_KEY=${{ secrets.QUALTRICS_API_KEY }}" &gt;&gt; $GITHUB_ENV</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>So in your publishable R code, you can simply refer to “<code>QUALTRICS_API_KEY</code>” in your code so as to not give away your API token.</p>
+<p>You can check that the API keys is set using the follwing code in R:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">message</span>(<span class="fu">Sys.getenv</span>(<span class="st">"QUALTRICS_API_KEY"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="end" class="slide level2 center">
+<h2>End</h2>
+<p>Thanks for your attention!</p>
 
 </section></section>
     </div>
