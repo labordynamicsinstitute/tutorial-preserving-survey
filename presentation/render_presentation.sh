@@ -5,7 +5,10 @@ if [[ $(basename "$PWD") == "presentation" ]]; then
     cd ..
 fi
 
+echo "Listing contents of $(pwd):"
+ls -al
+echo "Listing contents of presentation:"
+ls -al presentation
+
 [[ -z $QUARTO_OPTS ]] && QUARTO_OPTS="--output-dir _html"
 quarto render presentation/presentation.qmd $QUARTO_OPTS
-quarto render presentation/01-very-imperfect-example.qmd $QUARTO_OPTS
-quarto render presentation/day2.qmd $QUARTO_OPTS

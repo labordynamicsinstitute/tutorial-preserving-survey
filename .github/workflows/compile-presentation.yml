@@ -32,6 +32,8 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Setup Pages
       id: pages
@@ -185,3 +187,4 @@ jobs:
         DATAVERSE_SERVER: ${{secrets.DATAVERSE_SERVER}}
         DATAVERSE_DATASET_DOI: ${{secrets.DATAVERSE_DATASET_DOI}}
         GITHUB_DIR: data
+        
