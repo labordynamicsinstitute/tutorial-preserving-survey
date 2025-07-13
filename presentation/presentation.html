@@ -341,11 +341,11 @@ Laurel Krovetz
 <h2>Storing secrets in GitHub</h2>
 <p>You can store your Qualtrics secrets in an <code>.Renviron</code> file that you keep in the root of your project that contains the following information:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource plaintext number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href=""></a>QUALTRICS_API_KEY='something here'</span>
-<span id="cb6-2"><a href=""></a>QUALTRICS_BASE_URL='XXXX.qualtrics.com'</span>
-<span id="cb6-3"><a href=""></a>DATAVERSE_TOKEN='somethingelse'</span>
+<span id="cb6-2"><a href=""></a>QUALTRICS_BASE_URL='url goes here'</span>
+<span id="cb6-3"><a href=""></a>DATAVERSE_TOKEN='token goes here'</span>
 <span id="cb6-4"><a href=""></a>DATAVERSE_SERVER='https://demo.dataverse.org'</span>
-<span id="cb6-5"><a href=""></a>DATAVERSE_DATASET_DOI='doi:10.70122/xxx/xxxxx'</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You’ll fill out the relevant missing information.</p>
+<span id="cb6-5"><a href=""></a>DATAVERSE_DATASET_DOI='doi goes here'</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You’ll fill out missing information with your specific details.</p>
 <p>Then you will set the GitHub Actions secrets with</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource plaintext number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href=""></a>gh secret set -f .Renviron</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
@@ -356,12 +356,11 @@ Laurel Krovetz
 <p>So in your publishable R code, you can simply refer to “<code>QUALTRICS_API_KEY</code>” in your code so as to not give away your API token.</p>
 <p>You can check that the API keys is set using the follwing code in R:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource R number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">message</span>(<span class="fu">Sys.getenv</span>(<span class="st">"QUALTRICS_API_KEY"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="end" class="slide level2 center">
-<h2>End</h2>
-<p>Thanks for your attention!</p>
-
 </section></section>
+<section id="the-end-thanks-for-your-attention." class="title-slide slide level1 center">
+<h1>The end! Thanks for your attention.</h1>
+
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>
