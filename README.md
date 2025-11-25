@@ -30,3 +30,9 @@ gh secret set -f .Renviron --user $GITHUB_REPOSITORY
 ```
 
 then go to <https://github.com/settings/codespaces> and enable them for this repository (if not already done).
+
+## Github Actions workflow
+
+The following is approximately the workflow:
+
+![workflow](./images/workflow.png)

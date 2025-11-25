@@ -66,7 +66,8 @@ jobs:
         echo "xxxxxxxxxx${QUALTRICS_BASE_URL}xxxxxxxxxx"
         test -z "${QUALTRICS_BASE_URL}" && echo "QUALTRICS_BASE_URL is not set" && exit 1
         quarto render  index.qmd --output-dir _html
-    - name: Upload landing page Artifact
+        quarto render  presentation/index.Rmd --output-dir _html
+    - name: Upload HTML Artifact
       id: artifact-upload-step2
       uses: actions/upload-artifact@v4
       with:
@@ -81,45 +82,7 @@ jobs:
           name: artifact-data
           path: data
           retention-days: 1
-  compile-presentation:
-    runs-on: ubuntu-24.04
-    outputs:
-      presentationurl: ${{ steps.artifact-upload-step2.outputs.artifact-url }}
-    steps:
-    - uses: actions/checkout@v4
-    # Let's do the Quarto
-    - name: Set up Quarto
-      uses: quarto-dev/quarto-actions/setup@v2
-    - name: Install R
-      uses: r-lib/actions/setup-r@v2
-      with:
-        r-version: '4.4.2'
 
-    - name: Install R Dependencies 
-      uses: r-lib/actions/setup-renv@v2
-      with:
-        cache-version: 1
-        working-directory: presentation
-
-    - name: Render Quarto Project
-      env:
-        QUARTO_PRINT_STACK: true
-    #   uses: quarto-dev/quarto-actions/render@v2
-    #   with:
-    #     path: ./presentation
-      run: |
-        cd presentation
-        quarto render index.Rmd
-    - name: Upload Artifact
-      id: artifact-upload-step2
-      uses: actions/upload-artifact@v4
-      with:
-          name: artifact-presentation
-          path: |
-            presentation/index_files/
-            presentation/index.html
-            presentation/images/
-          retention-days: 1
      
 
 
@@ -156,7 +119,6 @@ jobs:
     runs-on: ubuntu-22.04
     needs: 
       - compile-quarto
-      - compile-presentation
       - create-pdf
     if: ${{ github.event.inputs.refresh_website == 'true' || github.event_name == 'push' }}
     steps:
@@ -183,7 +145,6 @@ jobs:
           set -ev
           ls -lR
           mv artifact-html website
-          mv artifact-presentation website/presentation
           mv artifact-presentation-pdf/index.pdf website/presentation/presentation.pdf
     # Prepare the GitHub Pages action
     - name: prepare GitHub Pages action
