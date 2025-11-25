@@ -12,3 +12,5 @@ You can check that the API key is set using the follwing code in R:
 ```{.R}
 message(Sys.getenv("QUALTRICS_API_KEY"))
 ```
+
+But don't include this in your published output (i.e., slides like these!)

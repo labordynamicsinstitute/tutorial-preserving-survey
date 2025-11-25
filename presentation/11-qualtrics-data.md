@@ -1,5 +1,15 @@
 ## Survey responses in Qualtrics
 
-Responses can be easily checked at a glance in the `Data and Analytics` tab. You can download data directly from this page, but to make sure you are always using the most up to date data, downloading directly via an API token is a more efficient way to access your data.
+Responses can be easily checked at a glance in the `Data and Analytics` tab. 
+
 
 ![](images/qualtricsc-data)
+
+
+- You can download data directly from this page1 
+- But we will NOT do that here, using instead a programmatic way to do so.
+
+Why?
+
+- If you do this only once, downloading manually is fine. 
+- Do it 2-3 times, you want to program it!

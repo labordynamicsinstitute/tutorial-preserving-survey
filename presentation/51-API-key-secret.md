@@ -1,6 +1,6 @@
-## Storing secrets in GitHub
+## Storing secrets in `.Renviron` locally
 
-You can store your Qualtrics secrets in an `.Renviron` file that you keep in the root of your project that contains the following information:
+You can store your Qualtrics secrets in an `.Renviron` file that you keep in the root of your project that contains the following information (fill in the true values):
 
 ```plaintext
 QUALTRICS_API_KEY='something here'
@@ -10,11 +10,16 @@ DATAVERSE_SERVER='https://demo.dataverse.org'
 DATAVERSE_DATASET_DOI='doi goes here'
 ```
 
-You'll fill out missing information with your specific details.
+Do not publish this file!
 
-Then you will set the GitHub Actions secrets with
+## Storing secrets in Github
+
+
+You can use the `.Renviron` file to set the GitHub Actions secrets with
 
 ```plaintext
 gh secret set -f .Renviron
 ```
+
+Instead of using the web interface!
 
