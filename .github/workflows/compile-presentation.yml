@@ -27,7 +27,7 @@ on:
 jobs:
 
   compile-quarto:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
 
     - name: Checkout
@@ -66,15 +66,6 @@ jobs:
         echo "xxxxxxxxxx${QUALTRICS_BASE_URL}xxxxxxxxxx"
         test -z "${QUALTRICS_BASE_URL}" && echo "QUALTRICS_BASE_URL is not set" && exit 1
         quarto render  index.qmd --output-dir _html
-    - name: Render Presentation PDF
-      env:
-        QUARTO_PRINT_STACK: true
-    #   uses: quarto-dev/quarto-actions/render@v2
-    #   with:
-    #     path: ./presentation
-      run: |
-        bash presentation/render_presentation.sh
-
     - name: Upload landing page Artifact
       id: artifact-upload-step2
       uses: actions/upload-artifact@v4
@@ -90,10 +81,51 @@ jobs:
           name: artifact-data
           path: data
           retention-days: 1
+  compile-presentation:
+    runs-on: ubuntu-24.04
+    outputs:
+      presentationurl: ${{ steps.artifact-upload-step2.outputs.artifact-url }}
+    steps:
+    - uses: actions/checkout@v4
+    # Let's do the Quarto
+    - name: Set up Quarto
+      uses: quarto-dev/quarto-actions/setup@v2
+    - name: Install R
+      uses: r-lib/actions/setup-r@v2
+      with:
+        r-version: '4.4.2'
 
-          # now make a PDF out of it
+    - name: Install R Dependencies 
+      uses: r-lib/actions/setup-renv@v2
+      with:
+        cache-version: 1
+        working-directory: presentation
+
+    - name: Render Quarto Project
+      env:
+        QUARTO_PRINT_STACK: true
+    #   uses: quarto-dev/quarto-actions/render@v2
+    #   with:
+    #     path: ./presentation
+      run: |
+        cd presentation
+        quarto render index.Rmd
+    - name: Upload Artifact
+      id: artifact-upload-step2
+      uses: actions/upload-artifact@v4
+      with:
+          name: artifact-presentation
+          path: |
+            presentation/index_files/
+            presentation/index.html
+            presentation/images/
+          retention-days: 1
+     
+
+
+    # now make a PDF out of it
   create-pdf:
-    needs: compile-quarto
+    needs: compile-presentation
     runs-on: ubuntu-latest
     steps:
     - name: Download quarto artifact
@@ -106,45 +138,53 @@ jobs:
         ls -la _html
         chmod -R a+rwX _html
         ls -la _html
-        
+  
     - name: Create PDF
       uses: addnab/docker-run-action@v3
       with:
         image: astefanutti/decktape
         options: -v ${{ github.workspace }}/_html/presentation:/slides 
         run: |
-          node /decktape/decktape.js --chrome-path /usr/bin/chromium-browser --chrome-arg=--no-sandbox --chrome-arg=--disable-gpu presentation.html presentation.pdf
+          node /decktape/decktape.js --chrome-path /usr/bin/chromium-browser --chrome-arg=--no-sandbox --chrome-arg=--disable-gpu index.html index.pdf
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: artifact-presentation-pdf
-        path: _html/presentation/presentation.pdf
+        path: _html/presentation/index.pdf
   deploy-all:
     runs-on: ubuntu-22.04
     needs: 
       - compile-quarto
+      - compile-presentation
       - create-pdf
     if: ${{ github.event.inputs.refresh_website == 'true' || github.event_name == 'push' }}
     steps:
-    # Pull down both artifacts
+    # Pull down all artifacts
     
     - name: Download HTML Artifacts
       uses: actions/download-artifact@v4
       with:
             path: .
             pattern: artifact-html
+    - name: Download Pres Artifacts
+      uses: actions/download-artifact@v4
+      with:
+            path: .
+            pattern: artifact-presentation
     - name: Download Pres PDF
       uses: actions/download-artifact@v4
       with:
             path: .
             pattern: artifact-presentation-pdf
-    # Adjust this to reflect what you are posting
+   # Adjust this to reflect what you are posting
     - name: Move stuff
       run: |
+          set -ev
           ls -lR
           mv artifact-html website
-          mv artifact-presentation-pdf/presentation.pdf website/presentation/presentation.pdf
+          mv artifact-presentation website/presentation
+          mv artifact-presentation-pdf/index.pdf website/presentation/presentation.pdf
     # Prepare the GitHub Pages action
     - name: prepare GitHub Pages action
       uses: actions/upload-pages-artifact@v3.0.1    

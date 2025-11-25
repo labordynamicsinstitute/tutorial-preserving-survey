@@ -45,9 +45,19 @@ esac
 # else  
 #   echo "Found $space/$repo:$tag"
 # fi
+
+[[ -d "$PWD/.cache" ]] || mkdir "$PWD/.cache"
+if [[ -d "$PWD/.cache" ]] 
+then 
+  export DOCKEREXTRA="$DOCKEREXTRA -v $PWD/.cache:/home/rstudio/.cache"
+fi
 source $(pwd)/.Renviron
 if [[ ! -z $QUALTRICS_API_KEY ]]; then export DOCKEREXTRA="$DOCKEREXTRA -e QUALTRICS_API_KEY=$QUALTRICS_API_KEY" ; fi
 if [[ ! -z $QUALTRICS_BASE_URL ]]; then export DOCKEREXTRA="$DOCKEREXTRA -e QUALTRICS_BASE_URL=$QUALTRICS_BASE_URL" ; fi
+# Do this for the Dataverse variables
+if [[ ! -z $DATAVERSE_TOKEN ]]; then export DOCKEREXTRA="$DOCKEREXTRA -e DATAVERSE_TOKEN=$DATAVERSE_TOKEN" ; fi
+if [[ ! -z $DATAVERSE_SERVER ]]; then export DOCKEREXTRA="$DOCKEREXTRA -e DATAVERSE_SERVER=$DATAVERSE_SERVER" ; fi
+if [[ ! -z $DATAVERSE_DATASET_DOI ]]; then export DOCKEREXTRA="$DOCKEREXTRA -e DATAVERSE_DATASET_DOI=$DATAVERSE_DATASET_DOI" ; fi
 # same for GITHUB_REPOSITORY
 if [[ ! -z $GITHUB_REPOSITORY ]]; then export DOCKEREXTRA="$DOCKEREXTRA -e GITHUB_REPOSITORY=$GITHUB_REPOSITORY" ; fi
 

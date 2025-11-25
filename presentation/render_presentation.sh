@@ -11,4 +11,4 @@ echo "Listing contents of presentation:"
 ls -al presentation
 
 [[ -z $QUARTO_OPTS ]] && QUARTO_OPTS="--output-dir _html"
-quarto render presentation/presentation.qmd $QUARTO_OPTS
+quarto render presentation/index.qmd $QUARTO_OPTS
