@@ -6,6 +6,8 @@
 - (Optionally) remove responses that took place outside the relevant window.  
 - Remove confidential data (variables `name_confidential` and `number_confidential` in our survey). 
 
+---
+
 ```{.R}
  data <- data.raw |>
     filter(consent == "Yes") |>

@@ -3,7 +3,7 @@ title: "Preserving Survey Data"
 author: 
   - "Lars Vilhuber"
   - "Laurel Krovetz"
-date: August 26 2025
+date: January 14 2026
 format: 
   revealjs:
     scrollable: true
@@ -61,12 +61,27 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 ```{r, child=c(here::here("presentation",'01-goals.md'))}
 ```
 
+```{r, child=c(here::here("presentation",'02-notes-on-goals.md'))}
+```
+
+```{r, child=c(here::here("presentation",'03-preservation.md'))}
+```
+
+```{r, child=c(here::here("presentation",'05-example-survey.md'))}
+```
+
 # Creating a survey in Qualtrics
 
 ```{r, child=c(here::here("presentation",'10-creating-survey.md'))}
 ```
 
 ```{r, child=c(here::here("presentation",'11-qualtrics-data.md'))}
+```
+
+```{r, child=c(here::here("presentation",'12-qualtrics-survey-specs.md'))}
+```
+
+```{r, child=c(here::here("presentation",'16-process-workflow.md'))}
 ```
 
 # Processing data in R

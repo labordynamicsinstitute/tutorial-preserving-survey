@@ -7,7 +7,7 @@
 
 There is not much in this tutorial that requires Qualtrics.
 
-- You do this with SurveyCTO, LimeSurvey, or any other system that has an API. 
+- You could do this with SurveyCTO, LimeSurvey, or any other system that has an API. 
 - You could do this with Google Forms, if you have linked it to a Google Sheet.
 - You could do this with a **lab experiment** system that stores data in an SQL database
 
@@ -16,6 +16,8 @@ There is not much in this tutorial that requires Qualtrics.
 > - [ ] Clean and process the data to **remove non-public data automatically**.
 
 It is important to remove any PII or confidential information as soon as possible. 
+
+---
 
 - That may not always be feasible. For instance, if you need geolocation to merge in contextual data, or compute distances, then some data processing may unavoidably require access to sensitive data.
 - But any data that is not needed should be removed early on.

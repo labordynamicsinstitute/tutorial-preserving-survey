@@ -4,6 +4,8 @@
 
 In order to always be analyzing the most up to date survey responses, load the data directly from the web using a Qualtrics API. We need a few pieces of information. 
 
+---
+
 These parts are public. In fact, the window of time may be important for credibility.
 
 ```{.R}

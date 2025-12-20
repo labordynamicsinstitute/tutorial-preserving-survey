@@ -4,6 +4,8 @@ An API token is assigned to your Qualtrics account and is used to request data f
 
 However, this token is your **secret token** and you don't want this appearing in your published code!
 
+---
+
 **Solutions**
 
 - Set it manually: 
@@ -11,6 +13,8 @@ However, this token is your **secret token** and you don't want this appearing i
 ```{.R}
 Sys.setenv(QUALTRICS_API_KEY = "your-token")
 ```
+
+---
 
 - Set it using environment variables stored outside your code (e.g., in `.Renviron` file)
   - That is how we do it for this presentation during development!

@@ -115,7 +115,7 @@
 ::::{.columns}
 :::{.column width="50%"}
 
-- [World Bank](https://www.worldbank.org/en/research/brief/data-reproducibility-policy)[^jones]
+- [World Bank](https://reproducibility.worldbank.org/index.php/home)[^jones]
 
 ![World Bank RRR](images/worldbank-rrr.png)
 

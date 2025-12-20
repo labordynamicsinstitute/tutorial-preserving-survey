@@ -17,3 +17,5 @@ data
 .local
 .ipynb_checkpoints
 .cache
+
+**/*.quarto_ipynb

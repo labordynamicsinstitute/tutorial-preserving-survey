@@ -9,6 +9,8 @@ You should not forget to preserve your survey definition!
 
 It is possible that your survey definition itself contains information that you are not allowed to publish:
 
+---
+
 - You might be running the survey with a firm, and the firm does not want to be identified
 - You are asking questions about specific products, and the product names are confidential
 
