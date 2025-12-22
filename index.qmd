@@ -52,8 +52,8 @@ QUALTRICS_SURVEY <- "SV_8Bbgqex21KyYDFY"
 
 # Time when this was posted (discard anything before that)
 
-QUALTRICS_STIME <- ymd_hms("2025-07-01 00:00:01")
-QUALTRICS_ETIME <- ymd_hms("2025-08-26 23:59:00")
+QUALTRICS_STIME <- ymd_hms("2025-12-01 00:00:01")
+QUALTRICS_ETIME <- ymd_hms("2026-02-01 23:59:00")
 
 
 if (!dir.exists(here::here("data"))) {
@@ -129,7 +129,7 @@ if (nrow(data) > 0) {
   cat("### Age")
   var_data <- data$age_1
   summary_stats <- data.frame(
-    Statistic = c("Count", "Mean", "Median", "Min", "Max", "Sts. Dev."),
+    Statistic = c("Count", "Mean", "Median", "Min", "Max", "Std. Dev."),
     Value = c(
       sum(!is.na(var_data)),
       mean(var_data, na.rm = TRUE),
@@ -150,7 +150,7 @@ if (nrow(data) > 0) {
   cat("### Number of tabs open")
   var_data <- data$num_tabs_1
   summary_stats <- data.frame(
-    Statistic = c("Count", "Mean", "Median", "Min", "Max", "Sts. Dev."),
+    Statistic = c("Count", "Mean", "Median", "Min", "Max", "Std. Dev."),
     Value = c(
       sum(!is.na(var_data)),
       mean(var_data, na.rm = TRUE),

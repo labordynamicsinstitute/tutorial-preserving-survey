@@ -29,6 +29,15 @@ format:
 
 
 ```{r config,include=FALSE}
+library(readr)
+library(here)
+library(knitr)
+library(dplyr)
+library(ggplot2)
+library(qualtRics)
+library(lubridate)
+library(qrcode)
+
 source(here::here("presentation",'global-libraries.R'))
 # The repository name
 
@@ -47,6 +56,15 @@ REPOSITORY_URL <- paste0("https://github.com/", GITHUB_REPOSITORY)
 WEBSITE_URL <- paste0("https://", GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSITORY_PARTS[2], "/", SUBDIRECTORY)
 WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSITORY_PARTS[2], "/", SUBDIRECTORY)
 
+## Qualtrics
+QUALTRICS_URL <- "https://cornell.yul1.qualtrics.com/jfe/form/SV_8Bbgqex21KyYDFY"
+QUALTRICS_FULL_URL <- "https://cornell.yul1.qualtrics.com/jfe/form"
+
+QUALTRICS_SURVEY <- "SV_8Bbgqex21KyYDFY"
+
+QUALTRICS_STIME <- ymd_hms("2025-12-01 00:00:01")
+QUALTRICS_ETIME <- ymd_hms("2026-02-01 23:59:00")
+
 ```
 
 ```{r, child=c(here::here("presentation",'00-introduction1.md'))}
@@ -55,7 +73,7 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 ```{r, child=c(here::here("presentation",'00-introduction2.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'00-survey-qrcode.md'))}
+```{r, child=c(here::here("presentation",'00-qrcode.md'))}
 ```
 
 ```{r, child=c(here::here("presentation",'01-goals.md'))}
