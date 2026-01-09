@@ -3,6 +3,9 @@ Now, let's go look at our survey results.
 ```{r downloaddata,include=FALSE}
 # download data to local locations
 
+QUALTRICS_STIME <- ymd_hms("2026-01-08 00:00:01")
+QUALTRICS_ETIME <- ymd_hms("2026-01-14 23:59:00")
+
 # if the Qualtrics API key is not set, we can't fetch the data
 if (Sys.getenv("QUALTRICS_API_KEY") != "") {
   data.raw <- fetch_survey(surveyID = QUALTRICS_SURVEY, verbose = TRUE) 
