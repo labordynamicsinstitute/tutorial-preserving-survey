@@ -168,6 +168,6 @@ if (nrow(data) > 0) {
 
 ## Why
 
-For more information and steps on how to start creating a survey in Qualtrics, how to process and clean the data to remove confidential data, see this [presentation](LINK TO PRESENTATION GOES HERE).
+For more information and steps on how to start creating a survey in Qualtrics, how to process and clean the data to remove confidential data, see this [presentation](https://labordynamicsinstitute.github.io/tutorial-preserving-survey/presentation/).
 
 :::
