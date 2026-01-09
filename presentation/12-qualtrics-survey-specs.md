@@ -2,8 +2,8 @@
 
 You should not forget to preserve your survey definition!
 
-- Download a `qsf` file to save and transfer survey structure to have a backup survey template. Export as QSF in ``Tools" in Qualtrics.
-- Also export survey to Word in ``Tools" in Qualtrics. Choose this option to get a well-formatted document.
+- Download a `qsf` file to save and transfer survey structure to have a backup survey template. Export as `.qsf` in `Tools` in Qualtrics.
+- Can also export survey as Word doc in `Tools` in Qualtrics. Choose this option to get a well-formatted document.
 
 ## Side-note to side-note: Confidential data in survey definitions!
 

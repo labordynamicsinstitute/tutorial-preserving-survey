@@ -3,10 +3,11 @@
 Responses can be easily checked at a glance in the `Data and Analytics` tab. 
 
 
-![](images/qualtricsc-data)
+![](images/qualtrics-data.png)
 
+---
 
-- You can download data directly from this page1 
+- You can download data directly from this page
 - But we will NOT do that here, using instead a programmatic way to do so.
 
 Why?

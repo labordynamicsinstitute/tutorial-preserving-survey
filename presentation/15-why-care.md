@@ -16,6 +16,8 @@
 
 - Several articles were investigated by third parties (Data Colada, in particular [^colada1]), and found to be problematic
 
+--- 
+
 ::::{.columns}  
 
 ::: {.column width="10%"}

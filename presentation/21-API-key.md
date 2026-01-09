@@ -14,10 +14,10 @@ However, this token is your **secret token** and you don't want this appearing i
 Sys.setenv(QUALTRICS_API_KEY = "your-token")
 ```
 
----
-
 - Set it using environment variables stored outside your code (e.g., in `.Renviron` file)
-  - That is how we do it for this presentation during development!
+	 - That is how we do it for this presentation during development!
+
+---
 
 ```{.R}
 # Here environment variables are read from .Renviron
