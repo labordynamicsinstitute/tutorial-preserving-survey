@@ -19,10 +19,10 @@ Sys.setenv(QUALTRICS_API_KEY = "your-token")
 
 ---
 
+- Use GitHub secrets to store the `.Renviron` file and load it in GitHub Actions 
+  - This is how we do it in this tutorial - see source code!
+
 ```{.R}
 # Here environment variables are read from .Renviron
 QUALTRICS_API_KEY <- Sys.getenv("QUALTRICS_API_KEY")
 ```
-
-- Use GitHub secrets to store the `.Renviron` file and load it in GitHub Actions 
-  - This is how we do it in this tutorial - see source code!

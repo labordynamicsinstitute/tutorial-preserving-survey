@@ -4,7 +4,7 @@
 - We filter the data to only include those who consented
 - We remove survey preview responses
 - (Optionally) remove responses that took place outside the relevant window.  
-- Remove confidential data (variables `name_confidential` and `number_confidential` in our survey). 
+- Remove confidential data (variables `name_confidential` and `number_confidential` in our survey, for example). 
 
 ---
 
