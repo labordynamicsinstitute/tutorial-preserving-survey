@@ -73,7 +73,7 @@ QUALTRICS_ETIME <- ymd_hms("2026-02-01 23:59:00")
 ```{r, child=c(here::here("presentation",'00-introduction2.md'))}
 ```
 
-```{r, child=c(here::here("presentation",'00-qrcode.md'))}
+```{r, child=c(here::here("presentation",'00-survey-qrcode.md'))}
 ```
 
 ```{r, child=c(here::here("presentation",'01-goals.md'))}

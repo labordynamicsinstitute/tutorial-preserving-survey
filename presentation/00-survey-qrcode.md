@@ -7,8 +7,20 @@
 :::
 
 ::: {.column width="40%"}
+```{r qrcode}
+#| echo: false
+library(qrcode)
 
-![](qrcode.png){width="350" height="350"}
+code <- qr_code(QUALTRICS_URL)
+generate_svg(code, file = "qrcode.svg")
+
+png(filename="qrcode.png")
+plot(code)
+invisible(dev.off())
+
+knitr::include_graphics("qrcode.png")
+
+```
 
 
 :::

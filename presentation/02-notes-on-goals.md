@@ -5,6 +5,8 @@
 > - [ ] **Create a survey** (in Qualtrics) for data collection.
 > - [ ] Load the latest responses from the server **using an API**
 
+---
+
 There is not much in this tutorial that requires Qualtrics.
 
 - You could do this with SurveyCTO, LimeSurvey, or any other system that has an API. 
