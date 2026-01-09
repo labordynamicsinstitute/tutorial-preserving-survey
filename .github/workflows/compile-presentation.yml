@@ -67,7 +67,7 @@ jobs:
         echo "xxxxxxxxxx${QUALTRICS_BASE_URL}xxxxxxxxxx"
         test -z "${QUALTRICS_BASE_URL}" && echo "QUALTRICS_BASE_URL is not set" && exit 1
         quarto render  index.qmd --output-dir _html
-        quarto render presentation/index.qmd --to revealjs --output-dir _html/presentation  
+        quarto render presentation/index.qmd --output-dir _html
     - name: Upload HTML Artifact
       id: artifact-upload-step2
       uses: actions/upload-artifact@v4
