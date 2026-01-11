@@ -1,10 +1,15 @@
 Now, let's go look at our survey results. 
 
-```{r downloaddata,include=FALSE}
+```{r downloaddata,include=TRUE,warning=TRUE,error=TRUE,message=TRUE}
 # download data to local locations
 
-QUALTRICS_STIME <- ymd_hms("2026-01-08 00:00:01")
-QUALTRICS_ETIME <- ymd_hms("2026-01-14 23:59:00")
+# Inherit variables from parent document
+if (!exists("QUALTRICS_STIME")) {
+  error("This document is meant to be included in another R Markdown document.")
+} else {
+  message("QUALTRICS_STIME=",QUALTRICS_STIME)
+  message("QUALTRICS_ETIME=",QUALTRICS_ETIME)
+}
 
 # if the Qualtrics API key is not set, we can't fetch the data
 if (Sys.getenv("QUALTRICS_API_KEY") != "") {
