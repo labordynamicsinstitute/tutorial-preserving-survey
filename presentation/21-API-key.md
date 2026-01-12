@@ -1,3 +1,8 @@
+## Using APIs
+
+- An API is a mechanism that enables two software components to communicate with each other 
+- APIs can be used to request data or services and get responses without needing to know how the other program works internally
+
 ## Loading data from Qualtrics using API
 
 An API token is assigned to your Qualtrics account and is used to request data from a survey. 
