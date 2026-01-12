@@ -21,6 +21,10 @@ Sys.setenv(QUALTRICS_API_KEY = "your-token")
 
 - Set it using environment variables stored outside your code (e.g., in `.Renviron` file)
 	 - That is how we do it for this presentation during development!
+	 
+```{.R}
+QUALTRICS_API_KEY= "your-token")
+```
 
 ---
 
