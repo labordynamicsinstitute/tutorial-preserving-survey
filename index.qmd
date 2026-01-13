@@ -52,7 +52,7 @@ QUALTRICS_SURVEY <- "SV_8Bbgqex21KyYDFY"
 
 # Time when this was posted (discard anything before that)
 
-QUALTRICS_STIME <- ymd_hms("2026-01-08 00:00:01")
+QUALTRICS_STIME <- ymd_hms("2026-01-014 00:00:01")
 QUALTRICS_ETIME <- ymd_hms("2026-01-14 23:59:00")
 
 
