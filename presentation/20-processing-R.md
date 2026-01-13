@@ -1,5 +1,10 @@
 # Using an API to obtain data
 
+## Using APIs
+
+- An API is a mechanism that enables two software components to communicate with each other 
+- APIs can be used to request data or services and get responses without needing to know how the other program works internally
+
 ## Loading data from Qualtrics using an API
 
 In order to always be analyzing the most up to date survey responses, load the data directly from the web using a Qualtrics API. We need a few pieces of information. 
