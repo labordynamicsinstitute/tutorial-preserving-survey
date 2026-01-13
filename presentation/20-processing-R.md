@@ -1,5 +1,7 @@
 # Using an API to obtain data
 
+---
+
 ## Using APIs
 
 - An API is a mechanism that enables two software components to communicate with each other 
