@@ -21,5 +21,5 @@ You can use the `.Renviron` file to set the GitHub Actions secrets with
 gh secret set -f .Renviron
 ```
 
-Instead of using the web interface!
+instead of using the web interface! (You need the [Github CLI](https://cli.github.com/))
 

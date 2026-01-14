@@ -185,4 +185,17 @@ For more information and steps on how to start creating a survey in Qualtrics, h
 ```{r, child=c(here::here('99-links.md'))}
 ```
 
+## Log
+
+
+```{r preserve data, include=TRUE,echo=TRUE,message=TRUE}
+# Now save the data to a local file
+if (nrow(data) > 0) {
+  write_csv(data, here::here("data", "tutorial-survey.csv"))
+  saveRDS(data, here::here("data", "tutorial-survey.rds"))
+} else {
+  # message("No data to save.")
+}
+```
+
 :::
