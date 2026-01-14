@@ -183,7 +183,7 @@ jobs:
         name: artifact-data
         path: data
     - name: Send data to Dataverse 
-      uses: larsvilhuber/dataverse-uploader@v1.7
+      uses: larsvilhuber/dataverse-uploader@v1.7.2
       with:
         DATAVERSE_TOKEN: ${{secrets.DATAVERSE_TOKEN}}
         DATAVERSE_SERVER: ${{secrets.DATAVERSE_SERVER}}
