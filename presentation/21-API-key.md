@@ -19,7 +19,7 @@ Sys.setenv(QUALTRICS_API_KEY = "your-token")
 	 - That is how we do it for this presentation during development!
 	 
 ```{.R}
-QUALTRICS_API_KEY= "your-token"
+QUALTRICS_API_KEY="your-token"
 ```
 
 ---
