@@ -24,7 +24,7 @@ QUALTRICS_API_KEY="your-token"
 
 ---
 
-- Use GitHub secrets to store the `.Renviron` file and load it in GitHub Actions 
+- We can also push these "secrets" to GitHub Secrets and load it in GitHub Actions 
   - This is how we do it in this tutorial - see source code!
 
 ```{.R}
