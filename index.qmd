@@ -50,9 +50,11 @@ QUALTRICS_FULL_URL <- "https://cornell.yul1.qualtrics.com/jfe/form"
 
 QUALTRICS_SURVEY <- "SV_8Bbgqex21KyYDFY"
 
+QUALTRICS_URL <- file.path(QUALTRICS_FULL_URL, QUALTRICS_SURVEY)
+
 # Time when this was posted (discard anything before that)
 
-QUALTRICS_STIME <- ymd_hms("2026-01-014 00:00:01")
+QUALTRICS_STIME <- ymd_hms("2025-10-01 00:00:01")
 QUALTRICS_ETIME <- ymd_hms("2026-01-14 23:59:00")
 
 
@@ -74,7 +76,15 @@ Please fill out this  survey:
 
 <`r file.path(QUALTRICS_FULL_URL,QUALTRICS_SURVEY)`>
 
-### Results
+
+
+```{r, child=c(here::here('presentation','00-qrcode.md'))}
+```
+
+## Results
+
+These are the results from all responses ever submitted. This might differ from the  [presentation](`r WEBSITE_URL`/presentation/)!
+
 ```{r downloaddata,include=FALSE}
 # download data to local location
 
@@ -168,6 +178,11 @@ if (nrow(data) > 0) {
 
 ## Why
 
-For more information and steps on how to start creating a survey in Qualtrics, how to process and clean the data to remove confidential data, see this [presentation](https://labordynamicsinstitute.github.io/tutorial-preserving-survey/presentation/).
+For more information and steps on how to start creating a survey in Qualtrics, how to process and clean the data to remove confidential data, see this [presentation](`r WEBSITE_URL`/presentation/).
+
+
+
+```{r, child=c(here::here('99-links.md'))}
+```
 
 :::
