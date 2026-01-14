@@ -230,7 +230,7 @@ We're going to need the last three here!
 python3 -m venv venv-dv
 source venv-dv/bin/activate
 source .Renviron
-git clone https://github.com/IQSS/dataverse-uploader
+git clone https://github.com/larsvilhuber/dataverse-uploader
 pip install -r dataverse-uploader/requirements.txt
 python3 dataverse-uploader/dataverse.py \
    $DATAVERSE_TOKEN $DATAVERSE_SERVER \ 
@@ -240,4 +240,13 @@ python3 dataverse-uploader/dataverse.py \
 ## Automatically from Github Actions
 
 
-- [Code for uploading automatically](https://github.com/larsvilhuber/summer-school-qicss-2025)
+- [Code for uploading automatically](https://github.com/labordynamicsinstitute/tutorial-preserving-survey/blob/main/.github/workflows/compile-presentation.yml#L175)
+
+## Voilà!
+
+We have a workflow that can automatically download from Qualtrics, and in the same move, upload to Dataverse!
+
+Possible improvements:
+
+- immediately publish (no human intervention)
+- upload the download logs and checksums together with the data
