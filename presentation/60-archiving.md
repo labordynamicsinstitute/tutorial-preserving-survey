@@ -248,5 +248,6 @@ We have a workflow that can automatically download from Qualtrics, and in the sa
 
 Possible improvements:
 
-- immediately publish (no human intervention)
+- [immediately publish (no human intervention)](https://github.com/labordynamicsinstitute/tutorial-preserving-survey/blob/main/.github/workflows/compile-presentation.yml#L193)
 - upload the download logs and checksums together with the data
+- [run on a schedule](https://github.com/labordynamicsinstitute/tutorial-preserving-survey/blob/main/.github/workflows/compile-presentation.yml#L8)

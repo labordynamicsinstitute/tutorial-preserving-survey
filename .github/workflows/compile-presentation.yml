@@ -189,4 +189,6 @@ jobs:
         DATAVERSE_SERVER: ${{secrets.DATAVERSE_SERVER}}
         DATAVERSE_DATASET_DOI: ${{secrets.DATAVERSE_DATASET_DOI}}
         GITHUB_DIR: data
+        DELETE: True
+        PUBLISH: False
         
