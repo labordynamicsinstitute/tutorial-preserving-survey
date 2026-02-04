@@ -5,9 +5,9 @@ on:
   push:
     branches:
     - main
-  #schedule:
-    # hourly run
-    #- cron: '*/10 * * * *'
+  schedule:
+    # hourly run, or faster
+    - cron: '*/10 * * * *'
     # daily run
     #- cron: '3 7 * * *'
     # weekly run
@@ -191,4 +191,5 @@ jobs:
         GITHUB_DIR: data
         DELETE: True
         PUBLISH: False
+
         
