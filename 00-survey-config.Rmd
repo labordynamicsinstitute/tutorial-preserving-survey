@@ -1,0 +1,11 @@
+```{r config-survey, echo=FALSE}
+## Qualtrics
+QUALTRICS_FULL_URL <- "https://cornell.yul1.qualtrics.com/jfe/form"
+QUALTRICS_SURVEY <- "SV_8Bbgqex21KyYDFY"
+
+QUALTRICS_URL <- file.path(QUALTRICS_FULL_URL, QUALTRICS_SURVEY)
+
+
+QUALTRICS_STIME <- ymd_hms("2026-01-12 00:00:01")
+QUALTRICS_ETIME <- ymd_hms("2026-02-14 23:59:00")
+```
