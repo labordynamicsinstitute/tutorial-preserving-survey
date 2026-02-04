@@ -28,6 +28,8 @@ if (Sys.getenv("QUALTRICS_API_KEY") != "") {
 
 ---
 
+So here are the results so far (`r Sys.Date()`):
+
 ```{r gender_table, results='asis', include=TRUE,echo=FALSE,message=FALSE}
 
 if ( nrow(data) >0 ) {

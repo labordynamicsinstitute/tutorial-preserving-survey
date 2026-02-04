@@ -70,7 +70,7 @@ Please fill out this  survey:
 
 ## Results
 
-These are the results from all responses ever submitted. This might differ from the  [presentation](`r WEBSITE_URL`/presentation/)!
+These are the results from all responses ever submitted (as of `r Sys.Date()`). This might differ from the  [presentation](`r WEBSITE_URL`/presentation/)!
 
 ```{r downloaddata,include=FALSE}
 # download data to local location
