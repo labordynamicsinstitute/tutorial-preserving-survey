@@ -4,26 +4,23 @@ author:
   - "Lars Vilhuber"
   - "Laurel Krovetz"
 date: January 14 2026
-format: 
+format:
   revealjs:
+    theme: [night, style.css]
     scrollable: true
-    margin: 0
     code-overflow: wrap
     reference-location: document
+    width: 1200
+    height: 675
     widescreen: true
     center: true
     transition: slide
-    theme: [night, style.css]
-    self_contained: false
     logo: logo.png
     footer: ""
-    reveal_options:
-        slideNumber: true
-        previewLinks: false
-        chalkboard:
-          theme: chalkboard
-          toggleNotesButton: true
-    reveal_plugins: ["chalkboard"]
+    slide-number: true
+    preview-links: false
+    chalkboard:
+      theme: chalkboard
 
 ---
 
@@ -58,83 +55,64 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 
 
 ```
-```{r, child=c(here::here('00-survey-config.Rmd'))}
-```
+{{< include ../00-survey-config.Rmd >}}
 
-```{r, child=c(here::here("presentation",'00-introduction1.md'))}
-```
+{{< include 00-introduction1.md >}}
 
-```{r, child=c(here::here("presentation",'00-introduction2.md'))}
-```
+{{< include 00-introduction2.md >}}
 
-```{r, child=c(here::here("presentation",'00-survey-qrcode.md'))}
-```
+{{< include 00-survey-qrcode.md >}}
 
-```{r, child=c(here::here("presentation",'01-goals.md'))}
-```
+{{< include 01-goals.md >}}
 
-```{r, child=c(here::here("presentation",'02-notes-on-goals.md'))}
-```
+{{< include 02-notes-on-goals.md >}}
 
-```{r, child=c(here::here("presentation",'03-preservation.md'))}
-```
+{{< include 03-preservation.md >}}
 
-```{r, child=c(here::here("presentation",'05-example-survey.md'))}
-```
+{{< include 05-example-survey.md >}}
 
 # Creating a survey in Qualtrics
 
-```{r, child=c(here::here("presentation",'10-creating-survey.md'))}
-```
+{{< include 10-creating-survey.md >}}
 
-```{r, child=c(here::here("presentation",'11-qualtrics-data.md'))}
-```
+{{< include 11-qualtrics-data.md >}}
 
-```{r, child=c(here::here("presentation",'12-qualtrics-survey-specs.md'))}
-```
+{{< include 12-qualtrics-survey-specs.md >}}
 
-```{r, child=c(here::here("presentation",'16-process-workflow.md'))}
-```
+{{< include 16-process-workflow.md >}}
 
 # Processing data in R
 
-```{r, child=c(here::here("presentation",'20-processing-R.md'))}
-```
+{{< include 20-processing-R.md >}}
 
-```{r, child=c(here::here("presentation",'21-API-key.md'))}
-```
+{{< include 21-API-key.md >}}
 
-```{r, child=c(here::here("presentation",'22-loading-data-R.md'))}
-```
+{{< include 22-loading-data-R.md >}}
 
-```{r, child=c(here::here("presentation",'23-cleaning-R.md'))}
-```
+{{< include 23-cleaning-R.md >}}
 
-```{r, child=c(here::here("presentation",'24-processing-R.md'))}
-```
+{{< include 24-processing-R.md >}}
 
-```{r, child=c(here::here("presentation",'30-present-data.md'))}
-```
+{{< include 30-present-data.md >}}
+
+# Using an API to streamline the process
+
+
 
 # Survey results
 
-```{r, child=c(here::here("presentation",'40-survey-results.md'))}
-```
+{{< include 40-survey-results.md >}}
 
 # Keeping your secrets secret
 
-```{r, child=c(here::here("presentation",'50-secrets.md'))}
-```
+{{< include 50-secrets.md >}}
 
-```{r, child=c(here::here("presentation",'51-API-key-secret.md'))}
-```
+{{< include 51-API-key-secret.md >}}
 
-```{r, child=c(here::here("presentation",'52-API-key-workflow.md'))}
-```
+{{< include 52-API-key-workflow.md >}}
 
 # Archiving
 
-```{r, child=c(here::here("presentation",'60-archiving.md'))}
-```
+{{< include 60-archiving.md >}}
 
 # The end! Thanks for your attention.

@@ -4,7 +4,7 @@
 
 ## Using APIs
 
-- An API is a mechanism that enables two software components to communicate with each other 
+- An API (*Application Programming Interface*) is a mechanism that enables two software components to communicate with each other 
 - APIs can be used to request data or services and get responses without needing to know how the other program works internally
 
 ## Loading data from Qualtrics using an API
