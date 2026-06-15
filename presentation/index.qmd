@@ -3,7 +3,7 @@ title: "Preserving Survey Data"
 author: 
   - "Lars Vilhuber"
   - "Laurel Krovetz"
-date: January 14 2026
+date: June 14 2026
 format:
   revealjs:
     theme: [night, style.css]
@@ -57,62 +57,70 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 ```
 {{< include ../00-survey-config.Rmd >}}
 
-{{< include 00-introduction1.md >}}
+# The problem of credibility
 
-{{< include 00-introduction2.md >}}
+{{< include 10-credibility.md >}}
 
-{{< include 00-survey-qrcode.md >}}
+# A generic survey workflow
 
-{{< include 01-goals.md >}}
+{{< include 20-generic-workflow.md >}}
 
-{{< include 02-notes-on-goals.md >}}
+# Modern verification at journals
 
-{{< include 03-preservation.md >}}
+{{< include 30-verification.md >}}
 
-{{< include 05-example-survey.md >}}
+# Outline of the tutorial
 
-# Creating a survey in Qualtrics
+{{< include 40-goals.md >}}
 
-{{< include 10-creating-survey.md >}}
+{{< include 41-notes-on-goals.md >}}
 
-{{< include 11-qualtrics-data.md >}}
+{{< include 42-take-survey.md >}}
 
-{{< include 12-qualtrics-survey-specs.md >}}
+# Demonstrating the core steps in R
 
-{{< include 16-process-workflow.md >}}
+{{< include 50-core-steps.md >}}
 
-# Processing data in R
+{{< include 51-qualtrics-creating-survey.md >}}
 
-{{< include 20-processing-R.md >}}
+{{< include 52-qualtrics-data.md >}}
 
-{{< include 21-API-key.md >}}
+{{< include 53-qualtrics-survey-specs.md >}}
 
-{{< include 22-loading-data-R.md >}}
+{{< include 54-loading-data-R.md >}}
 
-{{< include 23-cleaning-R.md >}}
+{{< include 55-cleaning-R.md >}}
 
-{{< include 24-processing-R.md >}}
+{{< include 56-saving-R.md >}}
 
-{{< include 30-present-data.md >}}
+# Stepping it up: API, checksums, and trusted systems
 
-# Using an API to streamline the process
+{{< include 60-stepping-up.md >}}
 
+{{< include 61-qualtrics-api.md >}}
 
+{{< include 62-qualtrics-api-key.md >}}
 
-# Survey results
+{{< include 63-qualtrics-api-issues.md >}}
 
-{{< include 40-survey-results.md >}}
+{{< include 64-secrets.md >}}
 
-# Keeping your secrets secret
+{{< include 65-checksums.md >}}
 
-{{< include 50-secrets.md >}}
+{{< include 66-dataverse.md >}}
 
-{{< include 51-API-key-secret.md >}}
+{{< include 67-trusted-systems.md >}}
 
-{{< include 52-API-key-workflow.md >}}
+# Demonstrating with the live example
 
-# Archiving
+{{< include 71-survey-results.md >}}
 
-{{< include 60-archiving.md >}}
+# The replication package
+
+{{< include 80-replication-package.md >}}
+
+# Does it prevent all fraud?
+
+{{< include 90-not-all-fraud.md >}}
 
 # The end! Thanks for your attention.

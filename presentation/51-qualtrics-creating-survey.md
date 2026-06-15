@@ -1,5 +1,3 @@
-# Creating a survey
-
 ## This is not a full Qualtrics tutorial!
 
 ## Creating a survey in Qualtrics
