@@ -1,3 +1,4 @@
+
 ## Take our survey {.smaller}
 
 :::: {.columns}
@@ -12,13 +13,13 @@
 library(qrcode)
 
 code <- qr_code(QUALTRICS_URL)
-generate_svg(code, file = "qrcode.svg")
+generate_svg(code, file = "survey-qrcode.svg")
 
-png(filename="qrcode.png")
+png(filename="survey-qrcode.png")
 plot(code)
 invisible(dev.off())
 
-knitr::include_graphics("qrcode.png")
+knitr::include_graphics("survey-qrcode.png")
 
 ```
 

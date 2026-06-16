@@ -1,8 +1,3 @@
-## Generic survey processing
-
-::: {.white-col}
-![Generic survey processing](images/xkcd_data_provenance-0.png)
-:::
 
 ## Generic survey processing
 

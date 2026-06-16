@@ -44,7 +44,7 @@ message(Sys.getenv("GITHUB_REPOSITORY"))
 # - split the two components
 # - combine them into a URL with 'github.io' in the middle
 
-SUBDIRECTORY <- "presentation/presentation.html" # Leave this empty if this file is in the main directory of the repository
+SUBDIRECTORY <- "presentation/" # Leave this empty if this file is in the main directory of the repository
 
 GITHUB_REPOSITORY <- Sys.getenv("GITHUB_REPOSITORY")
 GITHUB_REPOSITORY_PARTS <- strsplit(GITHUB_REPOSITORY, "/")[[1]]
@@ -57,6 +57,8 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 ```
 {{< include ../00-survey-config.Rmd >}}
 
+{{< include 00-follow-along.md >}}
+
 # The problem of credibility
 
 {{< include 10-credibility.md >}}
@@ -65,7 +67,7 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 
 {{< include 20-generic-workflow.md >}}
 
-# Modern verification at journals
+# Modern verification processes
 
 {{< include 30-verification.md >}}
 
@@ -75,23 +77,23 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 
 {{< include 41-notes-on-goals.md >}}
 
-{{< include 42-take-survey.md >}}
-
 # Demonstrating the core steps in R
 
 {{< include 50-core-steps.md >}}
 
 {{< include 51-qualtrics-creating-survey.md >}}
 
-{{< include 52-qualtrics-data.md >}}
+{{< include 52-qualtrics-survey-specs.md >}}
 
-{{< include 53-qualtrics-survey-specs.md >}}
+{{< include 53-qrcode-survey.md >}}
 
-{{< include 54-loading-data-R.md >}}
+{{< include 54-qualtrics-data.md >}}
 
-{{< include 55-cleaning-R.md >}}
+{{< include 55-loading-data-R.md >}}
 
-{{< include 56-saving-R.md >}}
+{{< include 56-cleaning-R.md >}}
+
+{{< include 57-saving-R.md >}}
 
 # Stepping it up: API, checksums, and trusted systems
 

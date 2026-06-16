@@ -1,4 +1,4 @@
-## Cleaning data
+## Cleaning data {.smaller}
 
 
 - We filter the data to only include those who consented
@@ -6,32 +6,33 @@
 - (Optionally) remove responses that took place outside the relevant window.  
 - Remove confidential data (variables `name_confidential` and `number_confidential` in our survey, for example). 
 
----
 
-```{.R}
- data <- data.raw |>
+```{r clean_data, echo=TRUE, eval=TRUE}
+#| code-line-numbers: "2|3|4|8-9"
+ data.confidential <- data.raw |>
     filter(consent == "Yes") |>
     filter(Status != "Survey Preview") |>
     filter(StartDate > QUALTRICS_STIME & EndDate < QUALTRICS_ETIME) |>
     select(StartDate,EndDate,Status,Finished,RecordedDate,
-    ResponseId,consent,age_1,gender,education,
-    num_tabs_1,name_confidential,number_confidential)
-clean_data <- data %>%
+           ResponseId,consent,age_1,gender,education,
+           num_tabs_1,name_confidential,number_confidential)
+clean_data <- data.confidential %>%
   select(-name_confidential, -number_confidential)
 ```
 
 ## Cleaning data by selection
 
-We could also simply not ever select the confidential data if we don't actually need it.
+We could also simply **not  select** the confidential data if we don't actually need it.
 
 
-```{.R}
+```{r clean_data_by_selection, echo=TRUE, eval=TRUE}
+#| code-line-numbers: "5-6"
  clean_data <- data.raw |>
     filter(consent == "Yes") |>
     filter(Status != "Survey Preview") |>
     filter(StartDate > QUALTRICS_STIME & EndDate < QUALTRICS_ETIME) |>
     select(StartDate,EndDate,Status,Finished,RecordedDate,
-    ResponseId,consent,age_1,gender,education,num_tabs_1)
+           ResponseId,consent,age_1,gender,education,num_tabs_1)
 ```
 
 
@@ -40,7 +41,8 @@ We could also simply not ever select the confidential data if we don't actually 
 We could also (hypothetically) immediately compute variables that rely on confidential data.
 
 
-```{.R}
+```{.R code-line-numbers="|8|9-10|11"}
+# not run
  clean_data <- data.raw |>
     filter(consent == "Yes") |>
     filter(Status != "Survey Preview") |>

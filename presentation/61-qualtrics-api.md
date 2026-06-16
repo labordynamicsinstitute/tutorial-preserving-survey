@@ -2,21 +2,27 @@
 
 - An API (*Application Programming Interface*) is a mechanism that enables two software components to communicate with each other 
 - APIs can be used to request data or services and get responses without needing to know how the other program works internally
+- We will use APIs to streamline and **automate** the processing
 
 ## Loading data from Qualtrics using an API
 
-In order to always be analyzing the most up to date survey responses, load the data directly from the web using a Qualtrics API. We need a few pieces of information. 
+We need to know a few things:
 
----
-
-These parts are public. In fact, the window of time may be important for credibility.
+- the URL we want to use, defined by a generic part, and a survey specific part
+- these are **public** - no need for secrecy
 
 ```{.R}
 # qualtrics URL components
 QUALTRICS_FULL_URL <- "first part of survey URL"
 
 QUALTRICS_SURVEY <- "second part of survey URL, usually starts with SV"
+```
 
+## Loading data from Qualtrics using an API
+
+We may want to limit the responses we download programmatically. This is not part of API, but of good programming practices.
+
+```{.R}
 # Keep only responses in the desired window of time
 QUALTRICS_STIME <- ymd_hms("2025-07-01 00:00:01")
 QUALTRICS_ETIME <- ymd_hms("2025-08-26 23:59:00")
@@ -25,7 +31,27 @@ QUALTRICS_ETIME <- ymd_hms("2025-08-26 23:59:00")
 
 ## Fetching the data with the API
 
-After setting the API token (next slides), we use it to pull the data from the survey server — this *replaces the manual download* from before:
+The API call *replaces the manual download* from before:
+
+```{.R}
+  data.raw <- fetch_survey(surveyID = QUALTRICS_SURVEY, 
+                           verbose = TRUE) 
+
+```
+
+## BUT: Privacy! Confidentiality!
+
+Can anybody just download these data?
+
+> NO!
+
+We need to authenticate, but not by entering a password manually.
+
+> That's where the **API token** comes in.
+
+## Fetching the data with the API
+
+We need to set an **API token**, then we can download this.
 
 ```{.R}
 if (Sys.getenv("QUALTRICS_API_KEY") != "") {
@@ -35,6 +61,7 @@ if (Sys.getenv("QUALTRICS_API_KEY") != "") {
   variable to your API key.")
 }
 ```
+
 
 ## The rest of the pipeline is unchanged
 

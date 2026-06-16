@@ -19,3 +19,5 @@ data
 .cache
 
 **/*.quarto_ipynb
+qrcode.*
+*-qrcode.*
