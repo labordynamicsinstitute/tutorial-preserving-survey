@@ -1,6 +1,85 @@
 
 
-## Overview
+## Credibility of Survey Data
+
+::: {.columns-2}
+
+:::: {.column}
+
+- You run a study using the *PSID*. Do you **trust** the downloaded data?
+
+::::
+:::: {.column}
+
+![](images/psid-data-download.png)
+
+::::
+:::
+
+## Credibility of Government Data
+
+::: {.columns-2}
+
+:::: {.column}
+
+- You run a study using the *PSID*. Do you **trust** the downloaded data?
+- You use unemployment data for **Angola** through *World Bank Data Bank*. Do you **trust** the downloaded data?
+::::
+:::: {.column}
+
+![](images/wbdata-ur-angola.png)
+
+::::
+:::
+
+## Credibility of Government Data
+
+::: {.columns-2}
+
+:::: {.column}
+
+- You run a study using the *PSID*. Do you **trust** the downloaded data?
+- You use unemployment data for **Argentina** through *World Bank Data Bank*. Do you **trust** the downloaded data?
+::::
+:::: {.column}
+
+![](images/wbdata-ur-argentina.png)
+
+::::
+:::
+
+## Credibility of Government Data
+
+::: {.columns-2}
+
+:::: {.column}
+
+- You run a study using the *PSID*. Do you **trust** the downloaded data?
+- You use unemployment data for **United States** through *World Bank Data Bank*. Do you **trust** the downloaded data?
+::::
+:::: {.column}
+
+![](images/wbdata-ur-angola.png)
+
+::::
+:::
+
+
+## Credibility of Researcher provided data
+
+::: {.columns-2}
+
+:::: {.column}
+
+- You run a study using the *PSID*. Do you **trust** the downloaded data?
+- You use unemployment data for **United States** through *World Bank Data Bank*. Do you **trust** the downloaded data?
+::::
+:::: {.column}
+
+![](images/wbdata-ur-angola.png)
+
+::::
+:::
 
 ## Timing
 

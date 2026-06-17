@@ -1,52 +1,49 @@
-## Secrets
+## Secrets (Github version)
 
-- You will want to keep your API key safe using GitHub secrets.
-
-- Secrets allow you to store sensitive information in your repository environment. You create secrets to use in GitHub Actions workflows.
-
-- To make a secret available to an action, you must set the secret as an environment variable in your GitHub workflow file. 
+- You will want to keep  APIs key safe using **GitHub Secrets**.
+- Secrets allow you to store sensitive information in the repository environment. 
+- Use the secret as an environment variable in the GitHub workflow file. 
 
 ## Storing secrets in `.Renviron` locally
 
-You can store your Qualtrics secrets in an `.Renviron` file that you keep in the root of your project that contains the following information (fill in the true values):
+You already have a `.Renviron` for local development:
 
-```plaintext
+```{.bash}
 QUALTRICS_API_KEY='something here'
-QUALTRICS_BASE_URL='url goes here'
-DATAVERSE_TOKEN='token goes here'
-DATAVERSE_SERVER='https://demo.dataverse.org'
-DATAVERSE_DATASET_DOI='doi goes here'
 ```
 
-Do not publish this file!
+- Do not publish this file!
+- Do not commit it to Github![^gitignore]
+
+[^gitignore]: Add `.Renviron` to your `.gitignore` file to prevent it from being tracked by Git and accidentally pushed to GitHub.
 
 ## Storing secrets in Github
 
+- Enter them manually in the GitHub web interface
+- Use the `.Renviron` file to set the GitHub Actions secrets with the [Github CLI](https://cli.github.com/):
 
-You can use the `.Renviron` file to set the GitHub Actions secrets with
-
-```plaintext
+```bash
 gh secret set -f .Renviron
 ```
 
-instead of using the web interface! (You need the [Github CLI](https://cli.github.com/))
+## Using secrets in GitHub Actions
 
-## Storing secrets in GitHub
+In GitHub workflows, set your environment variables:
 
-Then in GitHub workflows you can set your environment variables to be used in your code, such as the API key:
-
-```plaintext
+```bash
 echo "QUALTRICS_API_KEY=${{ secrets.QUALTRICS_API_KEY }}" >> $GITHUB_ENV
 ```
 
-So in your publishable R code, you can simply refer to "`QUALTRICS_API_KEY`" in your code so as to not give away your API token. 
+## Using secrets in Github Actions
 
---- 
+- R code does **not** need to be adapted!
 
-You can check that the API key is set using the following code in R:
 
-```{.R}
-message(Sys.getenv("QUALTRICS_API_KEY"))
+```{.R code-line-numbers: "1"}
+if (Sys.getenv("QUALTRICS_API_KEY") != "") {
+  data.raw <- fetch_survey(surveyID = QUALTRICS_SURVEY, verbose = TRUE) 
+} else {
+  stop("Please set the QUALTRICS_API_KEY environment 
+  variable to your API key.")
+}
 ```
-
-But don't include this in your published output (i.e., slides like these!)

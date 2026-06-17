@@ -55,7 +55,7 @@ head(data.raw)
 ```{r read_survey, echo=TRUE, eval=TRUE}
 library(qualtRics)
 
-data.raw <- read_survey(file.path(datapath, filename))
+data.raw <- read_survey(file.path(rawdatapath, filename))
 ```
 
 

@@ -1,4 +1,7 @@
-## Using APIs
+
+## Using automation
+
+##  APIs
 
 - An API (*Application Programming Interface*) is a mechanism that enables two software components to communicate with each other 
 - APIs can be used to request data or services and get responses without needing to know how the other program works internally
@@ -78,3 +81,11 @@ clean_data <- data.raw |>
 write.csv(clean_data, file.path(publicdata,"clean_data.csv"), 
 row.names = FALSE)
 ```
+
+## Not unique to Qualtrics
+
+- [LimeSurvey](https://www.limesurvey.org/manual/RemoteControl_2_API) -> [`limer`](https://github.com/cloudyr/limer/)
+- [SurveyCTO](https://www.surveycto.com/analysis-reporting/survey-data-in-r-using-the-rsurveycto-package/) -> [`rsurveycto`](https://agency-fund.github.io/rsurveycto/)
+- [Google Forms](https://developers.google.com/workspace/forms/api/reference/rest) -> [`googlesheets4`](https://googlesheets4.tidyverse.org/)
+
+And of course works just fine in Python (and via Python, could use Stata!)

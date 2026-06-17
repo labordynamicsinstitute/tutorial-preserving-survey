@@ -95,7 +95,7 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 
 {{< include 57-saving-R.md >}}
 
-# Stepping it up: API, checksums, and trusted systems
+# Stepping it up
 
 {{< include 60-stepping-up.md >}}
 
@@ -105,9 +105,14 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 
 {{< include 63-qualtrics-api-issues.md >}}
 
+# Secrets
+
 {{< include 64-secrets.md >}}
 
+# Checksums
 {{< include 65-checksums.md >}}
+
+# Preservation 
 
 {{< include 66-dataverse.md >}}
 
