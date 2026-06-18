@@ -3,7 +3,8 @@
 - save the confidential  data to a **clearly marked** folder (J-PAL policy: an encrypted volume)
 - save the cleaned publishable data to a **well-defined** folder.
 
-```{.R code-line-numbers="2-4|6-7"}
+```{r save-data, echo=TRUE, eval=FALSE}
+#| code-line-numbers: "2-4|6-7"
 # save confidential data NOT for publishing, if needed
 write.csv(data, file.path(confdatapath,"confidential_data.csv"), 
         row.names = FALSE)

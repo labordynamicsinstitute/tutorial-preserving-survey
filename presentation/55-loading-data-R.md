@@ -21,8 +21,24 @@ datapath <- here::here("data")
 rawdatapath <- file.path(datapath, "raw-confidential")
 confdatapath <- file.path(datapath, "confidential")
 cleandatapath <- file.path(datapath, "clean")
+metadatapath <- file.path(datapath, "metadata")
 ```
 
+## Minor thing
+
+Let's ensure that these paths all exist!
+
+```{r create-dirs, echo=TRUE, eval=TRUE, message=TRUE}
+#| code-line-numbers: "2-3"
+for (path in list(rawdatapath, confdatapath, cleandatapath, metadatapath)) {
+  if (!dir.exists(path)) {
+    dir.create(path, recursive = TRUE)
+    message("Created directory: ", path)
+  } else {
+    message("Directory already exists: ", path)
+  }
+}
+```
 
 ## Loading the downloaded data into R
 

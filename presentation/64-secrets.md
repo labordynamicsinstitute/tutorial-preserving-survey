@@ -19,12 +19,27 @@ QUALTRICS_API_KEY='something here'
 
 ## Storing secrets in Github
 
+::::{.columns}
+::: {.column width="50%"}
 - Enter them manually in the GitHub web interface
 - Use the `.Renviron` file to set the GitHub Actions secrets with the [Github CLI](https://cli.github.com/):
 
 ```bash
 gh secret set -f .Renviron
 ```
+:::
+::: {.column width="50%"}
+
+```{.bash}
+
+✓ Set Actions secret DATAVERSE_TOKEN for labordynamicsinstitute/tutorial-preserving-survey
+✓ Set Actions secret QUALTRICS_BASE_URL for labordynamicsinstitute/tutorial-preserving-survey
+✓ Set Actions secret DATAVERSE_SERVER for labordynamicsinstitute/tutorial-preserving-survey
+✓ Set Actions secret QUALTRICS_API_KEY for labordynamicsinstitute/tutorial-preserving-survey
+✓ Set Actions secret DATAVERSE_DATASET_DOI for labordynamicsinstitute/tutorial-preserving-survey
+```
+:::
+::::
 
 ## Using secrets in GitHub Actions
 
@@ -39,7 +54,8 @@ echo "QUALTRICS_API_KEY=${{ secrets.QUALTRICS_API_KEY }}" >> $GITHUB_ENV
 - R code does **not** need to be adapted!
 
 
-```{.R code-line-numbers: "1"}
+```{.R code-line-numbers="2"}
+# Same R code as before!
 if (Sys.getenv("QUALTRICS_API_KEY") != "") {
   data.raw <- fetch_survey(surveyID = QUALTRICS_SURVEY, verbose = TRUE) 
 } else {

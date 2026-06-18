@@ -116,15 +116,16 @@ WEBSITE_SHORT <- paste0(GITHUB_REPOSITORY_PARTS[1], ".github.io/", GITHUB_REPOSI
 
 {{< include 66-dataverse.md >}}
 
-{{< include 67-trusted-systems.md >}}
-
-# Demonstrating with the live example
+# Putting it all together
 
 {{< include 71-survey-results.md >}}
 
-# The replication package
 
-{{< include 80-replication-package.md >}}
+{{< include 72-replication-package.md >}}
+
+# What is next in this space?
+
+{{< include 80-trusted-systems.md >}}
 
 # Does it prevent all fraud?
 

@@ -1,44 +1,64 @@
-Now, let's go look at our survey results. 
 
-```{r downloaddata,include=TRUE,warning=TRUE,error=TRUE,message=TRUE}
-# download data to local locations
+## Putting it all together
 
-# Inherit variables from parent document
-if (!exists("QUALTRICS_STIME")) {
-  error("This document is meant to be included in another R Markdown document.")
-} else {
-  message("QUALTRICS_STIME=",QUALTRICS_STIME)
-  message("QUALTRICS_ETIME=",QUALTRICS_ETIME)
-}
 
-# if the Qualtrics API key is not set, we can't fetch the data
-if (Sys.getenv("QUALTRICS_API_KEY") != "") {
-  data.raw <- fetch_survey(surveyID = QUALTRICS_SURVEY, verbose = TRUE) 
-  data <- data.raw |>
-          filter(consent == "Yes") |>
-          filter(Status != "Survey Preview") |>
-          filter(StartDate > QUALTRICS_STIME & EndDate < QUALTRICS_ETIME) |>
-    # renaming variables
-    select(StartDate,EndDate,Status,Finished,RecordedDate,ResponseId,consent,age_1,gender,education,num_tabs_1,name_confidential,number_confidential)
-} else {
-  data <- data.frame()
-}
+- We already downloaded from the API, and have created checksum for raw data.
+- Let's clean the data, and save local copies
+- Then upload the publishable data to Dataverse, and add metadata.
 
+## Cleaning the data
+
+```{r run-clean_data, ref.label="clean_data", eval=TRUE, message=TRUE, echo=TRUE}
 ```
 
----
+
+## Save files
+
+```{r save-data-2, echo=TRUE, eval=TRUE}
+# save files in their locations
+data.confidential.file <-
+    file.path(confdatapath,"confidential_data.rds")
+data.clean.file <-
+    file.path(cleandatapath,"clean_data.rds")
+saveRDS(data.confidential, 
+        data.confidential.file)
+saveRDS(data.clean, 
+        data.clean.file)
+```
+
+## ... and create checksums
+
+
+```{r checksum-clean, echo=TRUE, eval=TRUE}
+# Calculate checksums for the saved files
+confidential_checksum <- 
+     digest::digest(data.confidential.file, 
+                    algo = "sha256", 
+                    file = TRUE)
+clean_checksum <- 
+     digest::digest(data.clean.file, 
+                    algo = "sha256", 
+                    file = TRUE)
+# Write checksums to files
+writeLines(confidential_checksum, 
+           file.path(metadatapath, "data.confidential.sha256"))
+writeLines(clean_checksum, 
+           file.path(metadatapath, "data.clean.sha256"))
+```
+
+## Analysis
 
 So here are the results so far (`r Sys.Date()`):
 
 ```{r gender_table, results='asis', include=TRUE,echo=FALSE,message=FALSE}
 
-if ( nrow(data) >0 ) {
-data |>
+if ( nrow(data.clean) >0 ) {
+data.clean |>
   select(gender) |>
   group_by(gender) |>
   summarise(Frequency=n()) |>
   ungroup() |>
-  mutate(Percent = round(Frequency/nrow(data)*100,2)) -> data.table
+  mutate(Percent = round(Frequency/nrow(data.clean)*100,2)) -> data.table
 
 data.table |> kable()
 } else {
@@ -46,16 +66,16 @@ data.table |> kable()
 }
 ```
 
----
+## By Education
 
 ```{r education_table, results='asis', include=TRUE,echo=FALSE,message=FALSE}
-if ( nrow(data) >0 ) {
-data |>
+if ( nrow(data.clean) >0 ) {
+data.clean |>
   select(education) |>
   group_by(education) |>
   summarise(Frequency=n()) |>
   ungroup() |>
-  mutate(Percent = round(Frequency/nrow(data)*100,2)) -> data.table
+  mutate(Percent = round(Frequency/nrow(data.clean)*100,2)) -> data.table
 
 data.table |> kable()
 } else {
@@ -63,12 +83,11 @@ data.table |> kable()
 }
 ```
 
---- 
+## Age
 
 ```{r age_table, results='asis', echo=FALSE, message=FALSE}
-if (nrow(data) > 0) {
-  cat("### Age")
-  var_data <- data$age_1
+if (nrow(data.clean) > 0) {
+  var_data <- data.clean$age_1
   summary_stats <- data.frame(
     Statistic = c("Count", "Mean", "Median", "Min", "Max", "Std. Dev."),
     Value = c(
@@ -89,9 +108,9 @@ if (nrow(data) > 0) {
 ---
 
 ```{r tabs_table, results='asis', echo=FALSE, message=FALSE}
-if (nrow(data) > 0) {
+if (nrow(data.clean) > 0) {
   cat("### Number of tabs open")
-  var_data <- data$num_tabs_1
+  var_data <- data.clean$num_tabs_1
   summary_stats <- data.frame(
     Statistic = c("Count", "Mean", "Median", "Min", "Max", "Std. Dev."),
     Value = c(
