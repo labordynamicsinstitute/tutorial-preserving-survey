@@ -28,7 +28,13 @@ python3 dataverse-uploader/dataverse.py \
    $DATAVERSE_DATASET_DOI . -d data/metadata
 python3 dataverse-uploader/dataverse.py \
    $DATAVERSE_TOKEN $DATAVERSE_SERVER \
-   $DATAVERSE_DATASET_DOI . -d data/clean
+   $DATAVERSE_DATASET_DOI . \
+   -d data/clean \
+   --remove false
 ```
 :::
 ::::
+
+---
+
+![](images/dataverse-after-upload.png)

@@ -39,6 +39,8 @@ invisible(dev.off())
 # If PDF_URL is defined, print the link to the PDF
 if (exists("PDF_URL") && !is.null(PDF_URL)) {
   cat(paste0("[![](images/pdf-round.png){width=50px}](", PDF_URL, ")"))
+} else {
+  cat("PDF coming.")
 }
 ```
 :::
